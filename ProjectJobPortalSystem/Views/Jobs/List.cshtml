@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ProjectJobPortalSystem.Models.JobsModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeofJob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalaryInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+               Job Seeker ID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Website)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeofJob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+                <td> 
+                    @foreach (var jobSeeker in ProjectJobPortalSystem.Models.DataHelper.getJokSeekers())
+                    {
+                        foreach (var job in jobSeeker.jobs)
+                        {
+                            if (job.Id == item.Id)
+                            {
+                                @jobSeeker.Id
+                                
+                            }
+                        }
+                    }
+                </td>
+        </tr>
+}
+       
+    </tbody>
+</table>

@@ -4,8 +4,9 @@
     {
         public JobsModel() { }
 
-        public JobsModel(string jobtitle ,string typeofjob, string salaryinfo, string description, string website, string country,int employerid, string location, DateTime posteddate ) 
+        public JobsModel(int id,string jobtitle ,string typeofjob, string salaryinfo, string description, string website, string country,int employerid, string location, DateTime posteddate ) 
         {
+            Id = id;
             JobTitle = jobtitle;
             SalaryInfo = salaryinfo;
             Description = description;
@@ -13,19 +14,20 @@
             EmployerId = employerid;
             TypeofJob = typeofjob;
             Country = country;
-            PostedDate = DateTime.Now;
+            PostedDate = posteddate;
             Location = location;
         }
-        int Id { get; set; }
+         public   int Id { get; set; }
         public string JobTitle{ get; set; }
 
-        public string SalaryInfo { get;set; }
+       
         public string Description { get; set; }
 
         public string Website { get; set; }
 
         public string TypeofJob { get; set; }
 
+        public string SalaryInfo { get; set; }
         public DateTime PostedDate { get; set; }
         public int EmployerId { get; set; }
         

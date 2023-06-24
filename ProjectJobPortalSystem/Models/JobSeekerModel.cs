@@ -1,22 +1,26 @@
 ﻿using System.Numerics;
 
+
 namespace ProjectJobPortalSystem.Models
 {
     public class JobSeekerModel
     {
         public JobSeekerModel() { }
 
-        public JobSeekerModel(int id, string name, string email, BigInteger contactno, string skills, string resume )
+        public JobSeekerModel(int id, string firstName,string lastName, string email, BigInteger contactno, string skills, string resume )
         {
             Id = id;
-            Name = name;
+            FirstName = firstName;
+            LastName = lastName;
             Email = email;
             ContactNo = contactno;
             Skills = skills;
             Resume = resume;
         }
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Email { get; set; }
 

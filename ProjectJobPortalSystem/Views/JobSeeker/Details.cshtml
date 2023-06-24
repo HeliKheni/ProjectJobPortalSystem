@@ -1,0 +1,88 @@
+﻿@model ProjectJobPortalSystem.Models.JobSeekerModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h1>Details Of Job Applied</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Skills)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Skills)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Resume)
+        </dd>
+    </dl>
+</div>
+@if (Model == null || !Model.jobs.Any())
+{
+    <p class="text-danger">No Answer present for the question. Click the button to add answer.</p>
+}
+else
+{
+
+    <table class="table table-bordered">
+        <tr>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Id)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().JobTitle)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().TypeofJob)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Website)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().PostedDate)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().EmployerId)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().SalaryInfo)</th>
+            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Description)</th>
+        </tr>
+        @foreach (var jobList in Model.jobs)
+        {
+            <tr>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().Id)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().JobTitle)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().TypeofJob)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().Website)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().Location)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().PostedDate)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().EmployerId)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().Location)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().SalaryInfo)</th>
+                <th>@Html.DisplayFor(Model => Model.jobs.First().Description)</th>
+                <td>
+                    <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" asp-route-questionId="@Model.Id" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" asp-route-questionId="@Model.Id" class="btn btn-danger">Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+</div>
+<div>
+    <a asp-controller="Jobs" asp-action="Create" asp-route-id="@Model?.Id" class="btn btn-primary"> Apply For Other Jobs</a>
+    <a asp-controller="JobSeeker" asp-action="List">Back to List</a>
+</div>
