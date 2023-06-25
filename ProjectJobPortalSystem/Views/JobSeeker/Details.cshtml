@@ -72,15 +72,10 @@ else
                 <th>@Html.DisplayFor(Model => Model.jobs.First().Location)</th>
                 <th>@Html.DisplayFor(Model => Model.jobs.First().SalaryInfo)</th>
                 <th>@Html.DisplayFor(Model => Model.jobs.First().Description)</th>
-                <td>
-                    <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" asp-route-questionId="@Model.Id" class="btn btn-danger">Delete</a>
-                    <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" asp-route-questionId="@Model.Id" class="btn btn-danger">Edit</a>
-                </td>
             </tr>
         }
     </table>
 }
 <div>
-    <a asp-controller="Jobs" asp-action="Create" asp-route-id="@Model?.Id" class="btn btn-primary"> Apply For Other Jobs</a>
     <a asp-controller="JobSeeker" asp-action="List">Back to List</a>
 </div>

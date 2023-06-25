@@ -115,11 +115,15 @@ namespace ProjectJobPortalSystem.Controllers
 
             if (job != null)
             {
+                var jobSeekers = DataHelper.getJokSeekers().Where(js => js.jobs.Any(j => j.Id == id)).ToList();
+                ViewBag.JobSeekers = jobSeekers;
+
                 return View(job);
             }
 
             return NotFound();
         }
+
 
     }
 }

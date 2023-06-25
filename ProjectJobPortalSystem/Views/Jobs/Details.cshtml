@@ -73,13 +73,14 @@
     </dl>
 </div>
 <h3>Job Seekers</h3>
-@if (Model.appliedJobSeekers != null && Model.appliedJobSeekers.Any())
+@if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
 {
-    foreach (var jobSeeker in Model.appliedJobSeekers)
+    foreach (var jobSeeker in ViewBag.JobSeekers)
     {
         <p>Job Seeker ID: @jobSeeker.Id</p>
         <p>First Name: @jobSeeker.FirstName</p>
-        
+        <p>Last Name: @jobSeeker.LastName</p>
+        <p>Email: @jobSeeker.Email</p>
     }
 }
 else
