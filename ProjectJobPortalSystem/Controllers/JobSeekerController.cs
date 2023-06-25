@@ -79,8 +79,8 @@ namespace ProjectJobPortalSystem.Controllers
         [HttpPost]
         public IActionResult Delete(JobSeekerModel qt)
         {
-            var questionremove = DataHelper.getJokSeekers().First(a => a.Id == qt.Id);
-            DataHelper.getJokSeekers().Remove(questionremove);
+            var jobSeekerDelete = DataHelper.getJokSeekers().First(a => a.Id == qt.Id);
+            DataHelper.getJokSeekers().Remove(jobSeekerDelete);
             return RedirectToAction("List");
         }
 

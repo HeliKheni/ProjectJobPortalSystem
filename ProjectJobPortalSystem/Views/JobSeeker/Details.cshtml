@@ -41,7 +41,7 @@
 </div>
 @if (Model == null || !Model.jobs.Any())
 {
-    <p class="text-danger">No Answer present for the question. Click the button to add answer.</p>
+    <p class="text-danger">Not Applied to Any Jobs.</p>
 }
 else
 {
@@ -80,8 +80,6 @@ else
         }
     </table>
 }
-
-</div>
 <div>
     <a asp-controller="Jobs" asp-action="Create" asp-route-id="@Model?.Id" class="btn btn-primary"> Apply For Other Jobs</a>
     <a asp-controller="JobSeeker" asp-action="List">Back to List</a>
