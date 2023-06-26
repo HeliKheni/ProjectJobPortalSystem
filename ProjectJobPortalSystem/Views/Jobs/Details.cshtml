@@ -64,26 +64,55 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Location)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Country)
-        </dd>
+        
     </dl>
 </div>
-<h3>Job Seekers</h3>
+<h3> Employer Details </h3>
+@if (ViewBag.Employer != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">Employer ID</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.Id</dd>
+        <dt class="col-sm-2">First Name</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.FirstName</dd>
+        <dt class="col-sm-2">Last Name</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.LastName</dd>
+        <dt class="col-sm-2">Contact No</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.ContactNo</dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.Email</dd>
+        <dt class="col-sm-2">Company Name</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.CompanyName</dd>
+        <dt class="col-sm-2">Company Profile</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.CompanyProfile</dd>
+        <dt class="col-sm-2">Position</dt>
+        <dd class="col-sm-10">@ViewBag.Employer.Position</dd>
+    </dl>
+}
+<h3>Applied Job Seekers</h3>
 @if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
 {
-    foreach (var jobSeeker in ViewBag.JobSeekers)
+    <table class="table ">
+        <tr>
+            <th>Job seeker Id </th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+
+        </tr>
+    @foreach (var jobSeeker in ViewBag.JobSeekers)
     {
-        <p>Job Seeker ID: @jobSeeker.Id</p>
-        <p>First Name: @jobSeeker.FirstName</p>
-        <p>Last Name: @jobSeeker.LastName</p>
-        <p>Email: @jobSeeker.Email</p>
+        <tr>
+            <td> @jobSeeker.Id </td>
+            <td> @jobSeeker.FirstName</td>
+            <td> @jobSeeker.LastName </td>
+            <td> @jobSeeker.Email</td>
+        </tr>
+      
     }
+    </table>
 }
 else
 {
-    <p>No job seekers available for this job.</p>
+    <p>No job seekers Applied for this job.</p>
 }

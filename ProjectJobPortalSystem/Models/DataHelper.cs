@@ -1,12 +1,14 @@
-﻿namespace ProjectJobPortalSystem.Models
+﻿using System.Numerics;
+
+namespace ProjectJobPortalSystem.Models
 {
     public static class DataHelper
     {
         static List<JobSeekerModel> jobSeeker;
+        static List<JobsModel> jobsList;
+        static List<EmployerModel> employerList;
         public static List<int> empId = new List<int> { 1, 2, 3 };
         public static List<JobSeekerModel> getJokSeekers()
-      
-
         {
             if (jobSeeker == null)
             {
@@ -15,24 +17,57 @@
                 jobSeeker.Add(new JobSeekerModel(2, "Heli", "Kheni", "heliKheni@gmail.com", 647 - 909-9213, "Coding", "Resume"));
                 jobSeeker.Add(new JobSeekerModel(3, "vrushali", "Ponlia", "vrushaliponkia@gmail.com", 647 - 923 - 2342, "Coding", "Resume"));
 
-                jobSeeker.ElementAt(0).jobs.Add(new JobsModel(1,"first job","zhdfui","bgdsy","hdfiu","dbsj","dhiu",empId.ElementAt(0),"sadho",DateTime.Now));
-                jobSeeker.ElementAt(0).jobs.Add(new JobsModel(2, "second job", "zhdfui", "bgdsy", "hdfiu", "dbsj", "dhiu", empId.ElementAt(1), "sadho", DateTime.Now));
-                jobSeeker.ElementAt(1).jobs.Add(new JobsModel(3, "third job", "zhdfui", "bgdsy", "hdfiu", "dbsj", "dhiu", empId.ElementAt(2), "sadho", DateTime.Now));
-                jobSeeker.ElementAt(1).jobs.Add(new JobsModel(4, "fourth job", "zhdfui", "bgdsy", "hdfiu", "dbsj", "dhiu", empId.ElementAt(1), "sadho", DateTime.Now));
+                 jobSeeker.ElementAt(0).jobs.Add(new JobsModel(1, "Software Engineer", "Full-time", "$80,000 - $100,000", "We are seeking a skilled software engineer to join our team.", "www.examplecompany.com", 1, "San Francisco, CA", DateTime.Now));
+                 jobSeeker.ElementAt(0).jobs.Add(new JobsModel(2, "Marketing Specialist", "Part-time", "$40,000 - $50,000", "We are looking for a marketing specialist with experience in digital marketing.", "www.examplecompany.com", 2, "New York, NY", DateTime.Now));
+                jobSeeker.ElementAt(1).jobs.Add(new JobsModel(2, "Marketing Specialist", "Part-time", "$40,000 - $50,000", "We are looking for a marketing specialist with experience in digital marketing.", "www.examplecompany.com", 2, "New York, NY", DateTime.Now));
+                jobSeeker.ElementAt(1).jobs.Add(new JobsModel(3, "SalesRepresentative", "Full-time", "$60,000-$80,000", "Joinoursalesteamandhelpdriverevenuegrowth.", "www.examplecompany.com", 3, "Chicago,IL", DateTime.Now));
+                 jobSeeker.ElementAt(1).jobs.Add(new JobsModel(4, "GraphicDesigner", "Full-time", "$50,000-$60,000", "We are hiring a creative graphic designer to join our team.", "www.examplecompany.com", 4, "Los Angeles, CA", DateTime.Now));
+                 jobSeeker.ElementAt(1).jobs.Add(new JobsModel(5, "DataAnalyst", "Full-time", "$70,000-$90,000", "We are looking for a data analyst to analyze and interpret complex data sets.", "www.examplecompany.com", 5, "Seattle, WA", DateTime.Now));
+                 jobSeeker.ElementAt(2).jobs.Add(new JobsModel(6, "CustomerServiceRepresentative", "Part-time", "$30,000-$40,000", "Join our customer service team and provide excellent support to our clients.", "www.examplecompany.com", 6, "Houston, TX", DateTime.Now));
+                 
             }
             return jobSeeker;
         }
-        public static List<JobsModel> GetJobs()
+         public static List<JobsModel> GetJobs()
         {
-            List<JobsModel> jobs = new List<JobsModel>();
-
-            foreach (var jobSeeker in getJokSeekers())
+            if(jobsList == null)
             {
-                jobs.AddRange(jobSeeker.jobs);
-            }
+                jobsList = new List<JobsModel>();
+                jobsList.Add(new JobsModel(1, "Software Engineer", "Full-time", "$80,000 - $100,000", "We are seeking a skilled software engineer to join our team.", "www.examplecompany.com", 1, "San Francisco, CA", DateTime.Now));
+                jobsList.Add(new JobsModel(2, "Marketing Specialist", "Part-time", "$40,000 - $50,000", "We are looking for a marketing specialist with experience in digital marketing.", "www.examplecompany.com", 1, "New York, NY", DateTime.Now));
+                jobsList.Add(new JobsModel(3, "Sales Representative", "Full-time", "$60,000-$80,000", "Join our sales team and help drive revenue growth.", "www.examplecompany.com", 3, "Chicago, IL", DateTime.Now));
+                jobsList.Add(new JobsModel(4, "Graphic Designer", "Full-time", "$50,000-$60,000", "We are hiring a creative graphic designer to join our team.", "www.examplecompany.com", 2, "Los Angeles, CA", DateTime.Now));
+                jobsList.Add(new JobsModel(5, "Data Analyst", "Full-time", "$70,000-$90,000", "We are looking for a data analyst to analyze and interpret complex data sets.", "www.examplecompany.com", 2, "Seattle, WA", DateTime.Now));
+                jobsList.Add(new JobsModel(6, "Customer Service Representative", "Part-time", "$30,000-$40,000", "Join our customer service team and provide excellent support to our clients.", "www.examplecompany.com", 3, "Houston, TX", DateTime.Now));
 
-            return jobs;
+            }
+            return jobsList;
         }
+        /* public static List<JobsModel> GetJobs()
+         {
+             List<JobsModel> jobs = new List<JobsModel>();
+
+             foreach (var jobSeeker in getJokSeekers())
+             {
+                 jobs.AddRange(jobSeeker.jobs);
+             }
+
+             return jobs;
+         }*/
+
+        public static List<EmployerModel> GetEmployers()
+        {
+            if (employerList == null)
+            {
+                employerList = new List<EmployerModel>();
+                employerList.Add(new EmployerModel(1, "John", "Doe", new BigInteger(1234567890), "john.doe@example.com", "ExampleCompany", "We are aleading technology company specializing in software development.", "CEO"));
+                employerList.Add(new EmployerModel(2, "Jane", "Smith", new BigInteger(9876543210), "jane.smith@example.com", "ABCCorporation", "ABCCorporation is a global provider of financialservices.", "HRManager"));
+                employerList.Add(new EmployerModel(3, "Michael", "Johnson", new BigInteger(5555555555), "michael.johnson@example.com", "TechSolutions", "Weprovidetechnologyconsultingservices.", "CTO"));
+                employerList.Add(new EmployerModel(4, "Emily", "Wilson", new BigInteger(9999999999), "emily.wilson@example.com", "GlobexCorporation", "Leadingproviderofglobalbusinesssolutions.", "CFO"));
+            }
+            return employerList;
+        }
+
     }
 }
 

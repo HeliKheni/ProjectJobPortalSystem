@@ -4,7 +4,7 @@
     {
         public JobsModel() { }
 
-        public JobsModel(int id,string jobtitle ,string typeofjob, string salaryinfo, string description, string website, string country,int employerid, string location, DateTime posteddate ) 
+        public JobsModel(int id,string jobtitle ,string typeofjob, string salaryinfo, string description, string website, int employerid, string location, DateTime? posteddate = null) 
         {
             Id = id;
             JobTitle = jobtitle;
@@ -13,8 +13,7 @@
             Website = website;
             EmployerId = employerid;
             TypeofJob = typeofjob;
-            Country = country;
-            PostedDate = posteddate;
+            PostedDate = posteddate ?? DateTime.Now;
             Location = location;
         }
          public   int Id { get; set; }
@@ -32,7 +31,6 @@
         public int EmployerId { get; set; }
         
         public string Location { get; set; }
-        public string Country { get; set; }
 
         public List<JobSeekerModel> appliedJobSeekers = new List<JobSeekerModel>();
     }

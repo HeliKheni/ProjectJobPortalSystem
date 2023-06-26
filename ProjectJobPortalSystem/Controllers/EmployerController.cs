@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectJobPortalSystem.Models;
 
 namespace ProjectJobPortalSystem.Controllers
 {
@@ -8,5 +9,12 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
+
+        //GET : /Employer/List
+        public IActionResult List()
+        {
+            return View(DataHelper.GetEmployers());
+        }
+
     }
 }

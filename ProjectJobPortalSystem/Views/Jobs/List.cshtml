@@ -14,7 +14,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobTitle)
             </th>
-            <th>
+            <th colspan="4">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
@@ -36,17 +36,9 @@
                 @Html.DisplayNameFor(model => model.Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+               Actions
             </th>
-            <th>
-               Job Seeker ID
-            </th>
-             <th>
-              Job Seeker First Name
-            </th>
-            <th>
-                Job Seeker Last Name
-            </th>
+           
         </tr>
     </thead>
     <tbody>
@@ -58,7 +50,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.JobTitle)
             </td>
-            <td>
+            <td colspan="4">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
@@ -79,33 +71,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-                <td> 
-                    @foreach (var jobSeeker in ProjectJobPortalSystem.Models.DataHelper.getJokSeekers())
-                    {
-                        foreach (var job in jobSeeker.jobs)
-                        {
-                            if (job.Id == item.Id)
-                            {
-                                @jobSeeker.Id
-                                <td>
-                                @jobSeeker.FirstName
-                                </td>
-                                <td>
-                                @jobSeeker.LastName
-                                </td>
-                                
-                            }
-                        }
-                    }
-                    
-                <td colspan="3" style="display: flex; justify-content: center;">
+            
+            <td colspan="4" style="display: flex; justify-content: center;">
+                    <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Apply</a>
                     <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Details</a>
                     <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" style="margin-right: 10px;">Edit</a>
                     <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                </td>
+            </td>
         </tr>
 }      
     </tbody>

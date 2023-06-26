@@ -31,6 +31,5 @@ namespace ProjectJobPortalSystem.Models
 
         public List<JobsModel> jobs = new List<JobsModel> (){ };
 
-
     }
 }
