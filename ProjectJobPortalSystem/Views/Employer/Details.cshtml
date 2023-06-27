@@ -54,9 +54,54 @@
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-</div>
-<div>
-    <a asp-controller="Employer" asp-action="List">Back to List of Jobs</a>
-</div>
+@if (Model == null || !Model.Jobslist.Any())
+{
+    <p class="text-danger">No Jobs Created.</p>
+}
+else
+{
+    <p>Details of Job Posted</p>
+    <table class="table table-bordered">
+        <tr>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Id)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().JobTitle)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().TypeofJob)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Website)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().PostedDate)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().EmployerId)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().SalaryInfo)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Description)</th>
+
+        </tr>
+        @foreach (var jobList in Model.Jobslist)
+        {
+            <tr>
+                <td>@Html.DisplayFor(_ => jobList.Id)</td>
+                <td>@Html.DisplayFor(_ => jobList.JobTitle)</td>
+                <td>@Html.DisplayFor(_ => jobList.TypeofJob)</td>
+                <td>@Html.DisplayFor(_ => jobList.Website)</td>
+                <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
+                <td>@Html.DisplayFor(_ =>jobList.EmployerId)</td>
+                <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
+                <td>@Html.DisplayFor(_ => jobList.Description)</td>
+                <td>
+                    <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" class="btn btn-danger">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </table>
+}
+<p>
+    <a asp-controller="Jobs" asp-action="Create" asp-route-employerId="@Model?.Id" class="btn btn-primary">Create New Job</a>
+</p>
+<p>
+    <a asp-controller="Employer" asp-action="List" class="btn btn-primary">Back to List of Employer </a>
+</p>
