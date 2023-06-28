@@ -78,5 +78,35 @@ namespace ProjectJobPortalSystem.Controllers
             }
             return View(employerDetails);
         }
+
+
+        //GET: /Employer/Delete
+        public IActionResult Delete(int id)
+        {
+               var empDelete = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
+
+            if (empDelete == null)
+            {
+                return RedirectToAction("List");
+            }
+
+            return View(empDelete);
+        }
+
+
+        // POST: /Employer/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(EmployerModel em)
+        {
+            var employertoremove = DataHelper.GetEmployers().FirstOrDefault(a => a.Id == em.Id);
+
+            if (employertoremove != null)
+            {
+                DataHelper.GetEmployers().Remove(employertoremove);
+
+            }
+            return RedirectToAction("List");
+        }
     }
 }
