@@ -7,7 +7,6 @@ namespace ProjectJobPortalSystem.Models
     public class JobsModel
     {
         public JobsModel() { }
-
         public JobsModel(int id, string jobTitle, string typeofJob, string salaryInfo, string description, string website, int employerId, string location, DateTime? postedDate = null)
         {
             Id = id;

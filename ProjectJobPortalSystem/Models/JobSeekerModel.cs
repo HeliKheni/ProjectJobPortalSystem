@@ -44,6 +44,6 @@ namespace ProjectJobPortalSystem.Models
         [Required(ErrorMessage = "Resume No is required")]
         public string Resume { get; set; }
 
-        public List<JobsModel> Jobs { get; set; } = new List<JobsModel>();
+        public List<JobsModel> jobs { get; set; } = new List<JobsModel>();
     }
 }

@@ -77,7 +77,7 @@ namespace ProjectJobPortalSystem.Controllers
             var job = jobs.FirstOrDefault(j => j.Id == jobId);
             var jobSeeker = jobSeekers.First(js => js.Id == id);
 
-            if (jobSeeker != null && job != null)
+            if (jobSeeker != null)
             {
                 // Check if the job seeker has already applied for the job
                 if (jobSeeker.jobs.Any(j => j.Id == jobId))
@@ -85,45 +85,14 @@ namespace ProjectJobPortalSystem.Controllers
                     ModelState.AddModelError(string.Empty, "You have already applied for this job.");
                     var jobSeekersIds = jobSeekers.Select(js => js.Id).ToList();
                     ViewBag.jobseekerlist = new SelectList(jobSeekersIds);
-                    return View();
+                    return View(job);
                 }
 
                 jobSeeker.jobs.Add(job);
                 return RedirectToAction("List", "Jobs");
             }
-
-            // If the job seeker or job is not found, return back to the apply page
-          // var jobSeekerIds = jobSeekers.Select(js => js.Id).ToList();
-            //ViewBag.jobseekerlist = new SelectList(jobSeekerIds);
-            return View("List", "Jobs");
+            return View();
         }
-        // var jobs = DataHelper.getJokSeekers();
-        //ViewBag.jobseekerid = new SelectList(DataHelper.getJokSeekers());
-        /*  int newJobId = jobs.SelectMany(js => js.jobs).Max(j => j.Id) + 1;
-          jm.Id = newJobId;
-          jobs[1].jobs.Add(jm);
-          return RedirectToAction("List");*/
-
-        // Retrieve the Job Seeker based on the selected Job Seeker ID
-        /* var selectedJobSeeker = DataHelper.getJokSeekers().FirstOrDefault(js => js.Id == jm.Id);
-
-         if (selectedJobSeeker != null)
-         {
-             int newJobId = jobs.SelectMany(js => js.jobs).Max(j => j.Id) + 1;
-             jm.Id = newJobId;
-
-             // Assign the Job Seeker ID to the job
-             jm.Id = selectedJobSeeker.Id;
-
-             // Add the job to the selected Job Seeker's list of jobs
-             selectedJobSeeker.jobs.Add(jm);
-
-             return RedirectToAction("List");
-         }
-
-         return BadRequest("Invalid Job Seeker ID");*/
-
-        // } 
 
         //GET : /Jobs/Edit
         public IActionResult Edit(int id)
@@ -144,6 +113,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // POST: /Jobs/Edit
+
         [HttpPost]
         public IActionResult Edit(JobsModel jm)
         {
@@ -221,6 +191,7 @@ namespace ProjectJobPortalSystem.Controllers
         //GET : /Jobs/Details
         public IActionResult Details(int id)
         {
+         
             var job = DataHelper.GetJobs().FirstOrDefault(j => j.Id == id);
 
             if (job != null)
