@@ -4,13 +4,10 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List Of Job Seekers</h1>
+<h1 class="alert alert-primary">List Of Job Seekers</h1>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -32,9 +29,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -61,8 +55,6 @@
     </tbody>
 </table>
 <p>
-    <a asp-action="Create" class="btn btn-primary">Add Job Seeker Details </a>
-</p>
-<p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home </a>
+    <a asp-action="Create" class="btn btn-primary">Add Job Seeker Details </a> 
+    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>
 </p>

@@ -4,87 +4,51 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
-            </th>
-            <th colspan="4">
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Website)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeofJob)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalaryInfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-               Actions
-            </th>
-           
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
-            <td colspan="4">
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Website)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeofJob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalaryInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            
-            <td colspan="4" style="display: flex; justify-content: center;">
-                    <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Apply</a>
-                    <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Details</a>
-                    <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" style="margin-right: 10px;">Edit</a>
-                    <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}      
-    </tbody>
-</table>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New Job </a>
-</p>
-<p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home </a>
-</p>
+<h1 class="alert alert-primary">List of all jobs</h1>
+<div class="table table-responsive table-bordered">
+    <table class="table table-striped table-sucess">
+        <thead class="thead-dark table-light">
+            <tr class="table-dark">
+                <th>Job No</th>
+                <th>Job Title</th>
+                <th>Description</th>
+                <th>Website</th>
+                <th>Job Type</th>
+                <th>Salary</th>
+                <th>Posted Date</th>
+                <th>Employer ID</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.JobTitle)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Website)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TypeofJob)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SalaryInfo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PostedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmployerId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-success btn-hover">Apply</a>
+                            <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-hover">Details</a>
+                            <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-hover">Edit</a>
+                            <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-hover">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Create New Job</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>
+</div>

@@ -4,18 +4,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="alert alert-primary">Details of Employer</h1>
 
 <div>
-    <h4>EmployerModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+       
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -56,13 +50,13 @@
 </div>
 @if (Model == null || !Model.Jobslist.Any())
 {
-    <p class="text-danger">No Jobs Created.</p>
+    <h3 class="alert alert-danger">No Jobs Created.</h3>
 }
 else
 {
-    <p>Details of Job Posted</p>
+    <h3 class="alert alert-primary">Details of posted jobs</h3>
     <table class="table table-bordered">
-        <tr>
+        <tr class="table-dark">
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Id)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().JobTitle)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().TypeofJob)</th>
@@ -73,11 +67,11 @@ else
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Description)</th>
-
+            <th> Actions </th>
         </tr>
         @foreach (var jobList in Model.Jobslist)
         {
-            <tr>
+            <tr class="table-success">
                 <td>@Html.DisplayFor(_ => jobList.Id)</td>
                 <td>@Html.DisplayFor(_ => jobList.JobTitle)</td>
                 <td>@Html.DisplayFor(_ => jobList.TypeofJob)</td>
@@ -90,8 +84,6 @@ else
                 <td>@Html.DisplayFor(_ => jobList.Description)</td>
                 <td>
                     <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" class="btn btn-primary">Edit</a>
-                </td>
-                <td>
                     <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" class="btn btn-danger">Delete</a>
                 </td>
 
@@ -99,9 +91,7 @@ else
         }
     </table>
 }
-<p>
+<br /></><p>
     <a asp-controller="Jobs" asp-action="Create" asp-route-employerId="@Model?.Id" class="btn btn-primary">Create New Job</a>
-</p>
-<p>
-    <a asp-controller="Employer" asp-action="List" class="btn btn-primary">Back to List of Employer </a>
+    <a asp-controller="Employer" asp-action="List" class="btn btn-danger">Back to List of Employer </a>
 </p>

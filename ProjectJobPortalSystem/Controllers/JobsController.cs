@@ -21,7 +21,9 @@ namespace ProjectJobPortalSystem.Controllers
         //GET : //Jobs/Create
         public IActionResult Create()
         {
-            ViewBag.empId = new SelectList(DataHelper.empId);
+            ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
+            var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
+            ViewBag.empId = new SelectList(employersIds);
             return View();
         }
 
@@ -36,7 +38,9 @@ namespace ProjectJobPortalSystem.Controllers
              job.Id = newJobId;
              jobs[1].jobs.Add(job);
              return RedirectToAction("List");*/
-           ViewBag.empId = new SelectList(DataHelper.empId);
+            ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
+            var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
+            ViewBag.empId = new SelectList(employersIds);
             var jobs = DataHelper.GetJobs();
             if (jobs.Count == 0)
             {
@@ -106,7 +110,10 @@ namespace ProjectJobPortalSystem.Controllers
                 return View(job);
             }
             return NotFound();*/
-            ViewBag.empId = new SelectList(DataHelper.empId);
+            
+            ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
+            var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
+            ViewBag.empId = new SelectList(employersIds);
             var jobForEdit = DataHelper.GetJobs().First(x => x.Id == id);
             return View(jobForEdit);
 
@@ -131,7 +138,9 @@ namespace ProjectJobPortalSystem.Controllers
             return View(job);*/
             if (ModelState.IsValid)
             {
-                ViewBag.empId = new SelectList(DataHelper.empId);
+                ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
+                var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
+                ViewBag.empId = new SelectList(employersIds);
                 jm.PostedDate = DateTime.Now;
                 DataHelper.GetJobs()[jm.Id - 1] = jm;
                 return RedirectToAction("List");

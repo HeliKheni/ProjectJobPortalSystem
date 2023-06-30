@@ -4,19 +4,13 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 class="alert alert-primary col-md-8">Edit Job Details</h1>
 
-<h4>JobsModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" readonly class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="JobTitle" class="control-label"></label>
                 <input asp-for="JobTitle" class="form-control" />
@@ -34,7 +28,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="TypeofJob" class="control-label"></label>
-                <input asp-for="TypeofJob" class="form-control" />
+                <select asp-for="TypeofJob" asp-items="ViewBag.JobTypes" class="form-select">
+                    <option value="">Select Job Type</option>
+                </select>
                 <span asp-validation-for="TypeofJob" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="EmployerId" class="control-label"></label>
-                <select asp-for="EmployerId" asp-items="ViewBag.empId">
+                <select asp-for="EmployerId" asp-items="ViewBag.empId" class="form-select">
                 </select>
                 <span asp-validation-for="EmployerId" class="text-danger"></span>
             </div>
@@ -57,17 +53,15 @@
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" /> | 
+                <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-controller="Jobs" asp-action="List">Back to List of Jobs</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

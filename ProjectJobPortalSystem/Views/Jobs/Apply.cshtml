@@ -4,33 +4,33 @@
     ViewData["Title"] = "Apply";
 }
 
-<h1>Apply for this job</h1>
+<div class="container">
+    <h1 class="display-4 mb-4 alert alert-primary">Apply for this job</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Apply" asp-route-jobId="@Model?.Id">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            
-            <div class="form-group">
-                Job Seeker Id : 
-                <select asp-for="Id" asp-items="@ViewBag.jobseekerlist"></select>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Apply" asp-route-jobId="@Model?.Id">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <span asp-validation-for="appliedJobSeekers" class="text-danger"></span>
-            </div>
-            
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="jobSeekerId">Job Seeker Id:</label>
+                    <select id="jobSeekerId" name="jobSeekerId" class="form-control">
+                        @foreach (var item in ViewBag.jobseekerlist)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                    <span asp-validation-for="appliedJobSeekers" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Apply" class="btn btn-primary" /> |
+                    <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <div>
-        <a asp-controller="Jobs" asp-action="List">Back to List of Jobs</a>
-    </div>
 </div>
 
 @section Scripts {
@@ -38,5 +38,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-

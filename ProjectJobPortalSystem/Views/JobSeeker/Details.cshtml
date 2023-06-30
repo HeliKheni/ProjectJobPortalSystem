@@ -3,38 +3,38 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Details Of Job Applied</h1>
+<h1 class="alert alert-primary">Details Of Job Seeker</h1>
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Skills)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Skills)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Resume)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Resume)
         </dd>
     </dl>
@@ -45,10 +45,10 @@
 }
 else
 {
-
+    <h3 class="alert alert-info"> Applied Job Details </h3>
     <table class="table table-bordered">
-        <tr>
-            <th>@Html.DisplayNameFor(Model => Model.jobs.First().Id)</th>
+        <tr class="table-dark">
+            <th>No</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().JobTitle)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().TypeofJob)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Website)</th>
@@ -58,26 +58,26 @@ else
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Description)</th>
-           
+
         </tr>
         @foreach (var jobList in Model.jobs)
         {
-            <tr>
-                <th>@Html.DisplayFor(_ => jobList.Id)</th>
-                <th>@Html.DisplayFor(_ => jobList.JobTitle)</th>
-                <th>@Html.DisplayFor(_ => jobList.TypeofJob)</th>
-                <th>@Html.DisplayFor(_ => jobList.Website)</th>
-                <th>@Html.DisplayFor(_ => jobList.Location)</th>
-                <th>@Html.DisplayFor(_ => jobList.PostedDate)</th>
-                <th>@Html.DisplayFor(_ =>jobList.EmployerId)</th>
-                <th>@Html.DisplayFor(_ => jobList.Location)</th>
-                <th>@Html.DisplayFor(_ => jobList.SalaryInfo)</th>
-                <th>@Html.DisplayFor(_ => jobList.Description)</th>
-                
+            <tr class="table-success">
+                <td>@Html.DisplayFor(_ => jobList.Id)</td>
+                <td>@Html.DisplayFor(_ => jobList.JobTitle)</td>
+                <td>@Html.DisplayFor(_ => jobList.TypeofJob)</td>
+                <td>@Html.DisplayFor(_ => jobList.Website)</td>
+                <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
+                <td>@Html.DisplayFor(_ => jobList.EmployerId)</td>
+                <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
+                <td>@Html.DisplayFor(_ => jobList.Description)</td>
+
             </tr>
         }
     </table>
 }
 <div>
-    <a asp-controller="JobSeeker" asp-action="List">Back to List</a>
+    <a asp-controller="JobSeeker" asp-action="List" class="btn btn-danger">Back to List</a>
 </div>

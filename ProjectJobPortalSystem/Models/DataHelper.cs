@@ -7,7 +7,8 @@ namespace ProjectJobPortalSystem.Models
         static List<JobSeekerModel> jobSeeker;
         static List<JobsModel> jobsList;
         static List<EmployerModel> employerList;
-        public static List<int> empId = new List<int> { 1, 2, 3 };
+        public static List<string> jobTypes = new List<string> { "Full-Time", "Part-Time", "Contact", "Seasonal", "Internship" };
+
         public static List<JobSeekerModel> getJokSeekers()
         {
             if (jobSeeker == null)

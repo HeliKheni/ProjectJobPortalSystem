@@ -4,14 +4,12 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
-
-
+<h1 class="alert alert-primary">List of all Employers</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                No
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -67,10 +65,8 @@
         </tr>
 }
     </tbody>
-</table>
+</table> <br />
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Employer </a>
-</p>
-<p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home </a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>
 </p>

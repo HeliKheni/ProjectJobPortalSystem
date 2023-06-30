@@ -4,118 +4,89 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container">
+    <h1 class="alert alert-primary col-md-8">Job Details</h1>
 
-<div>
-    <h4>JobsModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JobTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JobTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeofJob)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeofJob)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SalaryInfo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SalaryInfo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployerId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployerId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        
-    </dl>
-</div>
-<h3> Employer Details </h3>
-@if (ViewBag.Employer != null)
-{
-    <dl class="row">
-        <dt class="col-sm-2">Employer ID</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.Id</dd>
-        <dt class="col-sm-2">First Name</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.FirstName</dd>
-        <dt class="col-sm-2">Last Name</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.LastName</dd>
-        <dt class="col-sm-2">Contact No</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.ContactNo</dd>
-        <dt class="col-sm-2">Email</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.Email</dd>
-        <dt class="col-sm-2">Company Name</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.CompanyName</dd>
-        <dt class="col-sm-2">Company Profile</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.CompanyProfile</dd>
-        <dt class="col-sm-2">Position</dt>
-        <dd class="col-sm-10">@ViewBag.Employer.Position</dd>
-    </dl>
-}
-<h3>Applied Job Seekers</h3>
-@if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
-{
-    <table class="table ">
-        <tr>
-            <th>Job seeker Id </th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
+    <div class="card mb-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Job Title:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.JobTitle)</dd>
+                <dt class="col-sm-3">Description:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+                <dt class="col-sm-3">Type of Job:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TypeofJob)</dd>
+                <dt class="col-sm-3">Salary:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.SalaryInfo)</dd>
+                <dt class="col-sm-3">Posted Date:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PostedDate)</dd>
+                <dt class="col-sm-3">Location:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Location)</dd>
+                <dt class="col-sm-3">Website:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Website)</dd>
+            </dl>
+        </div>
+        </div>
+    </div>
 
-        </tr>
-    @foreach (var jobSeeker in ViewBag.JobSeekers)
+    <h3 class="mb-4 alert-success">Employer Details</h3>
+    @if (ViewBag.Employer != null)
     {
-        <tr>
-            <td> @jobSeeker.Id </td>
-            <td> @jobSeeker.FirstName</td>
-            <td> @jobSeeker.LastName </td>
-            <td> @jobSeeker.Email</td>
-        </tr>
-      
+        <div class="card mb-4">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Employer ID:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.Id</dd>
+                    <dt class="col-sm-3">Name:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.FirstName @ViewBag.Employer.LastName</dd>
+                    <dt class="col-sm-3">Contact No:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.ContactNo</dd>
+                    <dt class="col-sm-3">Email:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.Email</dd>
+                    <dt class="col-sm-3">Company Name:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.CompanyName</dd>
+                    <dt class="col-sm-3">Company Profile:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.CompanyProfile</dd>
+                    <dt class="col-sm-3">Position:</dt>
+                    <dd class="col-sm-9">@ViewBag.Employer.Position</dd>
+                </dl>
+            </div>
+        </div>
     }
-    </table>
-}
-else
-{
-    <p>No job seekers Applied for this job.</p>
-}
-<div>
-    <a asp-controller="Jobs" asp-action="List">Back to List of Jobs</a>
+
+    
+    @if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
+    {
+    <h3 class="mb-4 alert-success">Applied Job Seekers</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-dark">
+                    <th>Job Seeker ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var jobSeeker in ViewBag.JobSeekers)
+                {
+                    <tr class="table-info">
+                        <td>@jobSeeker.Id</td>
+                        <td>@jobSeeker.FirstName</td>
+                        <td>@jobSeeker.LastName</td>
+                        <td>@jobSeeker.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+    <h3 class="mb-4 alert-danger">No job seekers applied for this job.</h3>
+        
+    }
+
+    <div class="mt-4">
+        <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
+    </div>
 </div>

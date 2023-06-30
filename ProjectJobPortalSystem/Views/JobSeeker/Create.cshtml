@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="alert alert-primary">Create New Job Seeker</h1>
 
-<h4>JobSeekerModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,16 +35,13 @@
                 <label asp-for="Resume" class="control-label"></label>
                 <input asp-for="Resume" class="form-control" />
                 <span asp-validation-for="Resume" class="text-danger"></span>
-            </div>
+            </div> <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" /> 
+                <a asp-controller="JobSeeker" asp-action="List" class="btn btn-danger">Back to List of JobSeeker</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-controller="JobSeeker" asp-action="List">Back to List of JobSeeker</a>
 </div>
 
 @section Scripts {
