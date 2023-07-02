@@ -10,6 +10,10 @@
     <h3>Are you sure you want to delete this?</h3>
     <div class="card mb-4">
         <div class="card-body">
+
+            <input type="hidden" asp-for="EmployerId" value="ViewBag.EmployerId" />
+
+
             <dl class="row">
                 
                 <dt class="col-sm-3">
@@ -92,7 +96,7 @@
 
             }
             <form asp-action="Delete">
-                <input type="submit" value="Delete" class="btn btn-danger" asp-route-id="@Model.EmployerId" /> |
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
                 <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
             </form>
         </div>

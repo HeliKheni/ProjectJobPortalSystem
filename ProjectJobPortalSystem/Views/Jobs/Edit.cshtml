@@ -50,8 +50,8 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div><br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" asp-route-id="@Model.EmployerId" /> |
-                <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
             </div>
         </form>
     </div>

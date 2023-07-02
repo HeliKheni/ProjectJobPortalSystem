@@ -146,16 +146,6 @@ namespace ProjectJobPortalSystem.Controllers
         // GET: /Jobs/Delete/
         public IActionResult Delete(int id)
         {
-            /*  var jobSeeker = DataHelper.getJokSeekers().FirstOrDefault(js => js.jobs.Any(j => j.Id == id));
-              if (jobSeeker != null)
-              {
-                  var jobToDelete = jobSeeker.jobs.FirstOrDefault(j => j.Id == id);
-                  if (jobToDelete != null)
-                  {
-                      return View(jobToDelete);
-                  }
-              }
-              return NotFound();*/
             var jobForDelete = DataHelper.GetJobs().FirstOrDefault(x => x.Id == id);
 
             // Retrieve the jobseeker details who applied for this job
@@ -165,8 +155,10 @@ namespace ProjectJobPortalSystem.Controllers
             {
                 return RedirectToAction("List");
             }
-
+           
+            ViewBag.EmployerId = jobForDelete.EmployerId;
             return View(jobForDelete);
+            
         }
 
         // POST: /Jobs/Delete/
@@ -185,32 +177,58 @@ namespace ProjectJobPortalSystem.Controllers
                 }
             }
             return NotFound();*/
-            
-            var jobtoremove = DataHelper.GetJobs().FirstOrDefault(a => a.Id == jm.Id);
-            
-          
-            if (jobtoremove != null)
-            {
-                // Find the job seeker that has the job
-                var jobSeeker = DataHelper.getJokSeekers().FirstOrDefault(js => js.jobs.Any(j => j.Id == jm.Id));
-                if (jobSeeker != null)
-                {
-                    // Remove the job from the job seeker's jobs
-                    var jobToDelete = jobSeeker.jobs.FirstOrDefault(j => j.Id == jm.Id);
-                    if (jobToDelete != null)
-                    {
-                        jobSeeker.jobs.Remove(jobToDelete);
-                    }
-                }
-                //Remove the job from jobs model
-                DataHelper.GetJobs().Remove(jobtoremove);
 
-                // Access the EmployerId property only if jobToRemove is not null
-                var employerId = jobtoremove.EmployerId;
-                return RedirectToAction("Details", "Employer", new { id = empid });
-            }
+            /*  var jobtoremove = DataHelper.GetJobs().FirstOrDefault(a => a.Id == jm.Id); 
+              if (jobtoremove != null)
+              {
+                  // Find the job seeker that has the job
+                  var jobSeeker = DataHelper.getJokSeekers().FirstOrDefault(js => js.jobs.Any(j => j.Id == jm.Id));
+                  if (jobSeeker != null)
+                  {
+                      // Remove the job from the job seeker's jobs
+                      var jobToDelete = jobSeeker.jobs.FirstOrDefault(j => j.Id == jm.Id);
+                      if (jobToDelete != null)
+                      {
+                          jobSeeker.jobs.Remove(jobToDelete);
+                      }
+                  }
+                  //Remove the job from jobs model
+                  DataHelper.GetJobs().Remove(jobtoremove);
+                  var employerId = jobtoremove.EmployerId;
+                  return RedirectToAction("Details", "Employer", new { id = employerId });
+              }
+              return RedirectToAction("List", "Employer");*/
             // return RedirectToAction("List");
-          
+            // POST: /Jobs/Delete/
+           
+           var jobToDelete = DataHelper.GetJobs().FirstOrDefault(a => a.Id == jm.Id);
+
+                if (jobToDelete != null)
+                {
+                    // Find the job seeker that has the job
+                    var jobSeekers = DataHelper.getJokSeekers().Where(js => js.jobs.Any(j => j.Id == jm.Id)).ToList();
+                        foreach (var jobSeeker in jobSeekers)
+                        {
+                            var jobToRemove = jobSeeker.jobs.FirstOrDefault(j => j.Id == jm.Id);
+                            if (jobToRemove != null)
+                            {
+                                jobSeeker.jobs.Remove(jobToRemove);
+                            }
+                        }
+                
+
+                    // Remove the job from the jobs model
+                    DataHelper.GetJobs().Remove(jobToDelete);
+
+                    var employerId = jobToDelete.EmployerId;
+
+                    return RedirectToAction("Details", "Employer", new { id = employerId });
+                }
+
+                return RedirectToAction("List");
+            
+
+
         }
 
         //GET : /Jobs/Details

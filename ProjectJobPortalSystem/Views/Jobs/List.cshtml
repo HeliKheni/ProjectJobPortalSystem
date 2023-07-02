@@ -42,10 +42,8 @@ else
                     <td>@Html.DisplayFor(modelItem => item.Location)</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-success btn-hover">Apply</a>
+                            <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-warning btn-hover">Apply</a>
                             <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-hover">Details</a>
-                            <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-hover">Edit</a>
-                            <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-hover">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -55,6 +53,5 @@ else
 </div>
 }
 <div class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Create New Job</a>
     <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>
 </div>
