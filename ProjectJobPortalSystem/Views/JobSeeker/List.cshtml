@@ -5,6 +5,12 @@
 }
 
 <h1 class="alert alert-primary">List Of Job Seekers</h1>
+@if (!Model.Any() || Model == null)
+{
+    <h2 class="alert alert-danger">No Job seekers Available</h2>
+}
+else
+{
 <table class="table">
     <thead>
         <tr>
@@ -19,6 +25,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Skills)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactNo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Resume)
@@ -41,6 +50,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Skills)
             </td>
+             <td>
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Resume)
             </td>
@@ -54,6 +66,7 @@
 }
     </tbody>
 </table>
+}
 <p>
     <a asp-action="Create" class="btn btn-primary">Add Job Seeker Details </a> 
     <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>

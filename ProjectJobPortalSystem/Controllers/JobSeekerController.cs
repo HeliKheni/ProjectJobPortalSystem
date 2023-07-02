@@ -62,7 +62,6 @@ namespace ProjectJobPortalSystem.Controllers
             }
             else
             {
-               
                 return View(js);
             }
         }
@@ -70,7 +69,6 @@ namespace ProjectJobPortalSystem.Controllers
         //GET : /JobSeeker/Delete
         public IActionResult Delete(int id)
         {
-          
             var jobSeekerDelete = DataHelper.getJokSeekers().First(x => x.Id == id);
             return View(jobSeekerDelete);
         }

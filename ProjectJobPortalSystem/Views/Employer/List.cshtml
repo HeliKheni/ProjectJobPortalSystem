@@ -3,7 +3,12 @@
 @{
     ViewData["Title"] = "List";
 }
-
+@if (!Model.Any() || Model == null)
+{
+    <h2 class="alert alert-danger">No Employer Available</h2>
+}
+else
+{
 <h1 class="alert alert-primary">List of all Employers</h1>
 <table class="table">
     <thead>
@@ -65,7 +70,8 @@
         </tr>
 }
     </tbody>
-</table> <br />
+</table> 
+}<br />
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Employer </a>
     <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>

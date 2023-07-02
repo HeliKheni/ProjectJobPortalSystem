@@ -11,21 +11,16 @@
         <div class="col-md-4">
             <form asp-action="Apply" asp-route-jobId="@Model?.Id">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                 <div class="form-group">
-                    <label for="jobSeekerId">Job Seeker Id:</label>
-                    <select id="jobSeekerId" name="jobSeekerId" class="form-control">
-                        @foreach (var item in ViewBag.jobseekerlist)
-                        {
-                            <option value="@item.Value">@item.Text</option>
-                        }
-                    </select>
-                    <span asp-validation-for="appliedJobSeekers" class="text-danger"></span>
+                    Job Seeker Id :
+                    <select asp-for="Id" asp-items="@ViewBag.jobseekerlist" class="form-select"></select>
+
+                    <span asp-validation-for="appliedJobSeekers" class="text-danger" ></span>
                 </div>
+
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="Apply" class="btn btn-primary" /> |
-                    <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
+                    <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
         </div>

@@ -46,8 +46,7 @@ namespace ProjectJobPortalSystem.Models
         public int EmployerId { get; set; }
 
         [Required(ErrorMessage = "Location is required")]
-        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "Location should only contain alphabetic characters")]
-        public string Location { get; set; }
+         public string Location { get; set; }
 
         public List<JobSeekerModel> appliedJobSeekers = new List<JobSeekerModel>();
     }

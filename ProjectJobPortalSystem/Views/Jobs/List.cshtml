@@ -5,6 +5,12 @@
 }
 
 <h1 class="alert alert-primary">List of all jobs</h1>
+@if (!Model.Any() || Model == null)
+{
+    <h2 class="alert alert-danger">No Jobs Available</h2>
+}
+else
+{
 <div class="table table-responsive table-bordered">
     <table class="table table-striped table-sucess">
         <thead class="thead-dark table-light">
@@ -47,7 +53,7 @@
         </tbody>
     </table>
 </div>
-
+}
 <div class="text-center">
     <a asp-action="Create" class="btn btn-primary">Create New Job</a>
     <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>

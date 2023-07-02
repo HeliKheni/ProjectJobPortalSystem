@@ -19,11 +19,12 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : //Jobs/Create
-        public IActionResult Create()
+        public IActionResult Create(int employerId)
         {
             ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
-            var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
-            ViewBag.empId = new SelectList(employersIds);
+            // var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
+            // ViewBag.empId = new SelectList(employersIds);
+            ViewBag.EmployerId = employerId;
             return View();
         }
 
@@ -32,15 +33,6 @@ namespace ProjectJobPortalSystem.Controllers
         [HttpPost]
         public IActionResult Create(JobsModel jm)
         {
-            /* var jobs = DataHelper.getJokSeekers();
-             ViewBag.empId = new SelectList(DataHelper.empId);
-             int newJobId = jobs.SelectMany(js => js.jobs).Max(j => j.Id) + 1;
-             job.Id = newJobId;
-             jobs[1].jobs.Add(job);
-             return RedirectToAction("List");*/
-            ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
-            var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
-            ViewBag.empId = new SelectList(employersIds);
             var jobs = DataHelper.GetJobs();
             if (jobs.Count == 0)
             {
@@ -55,7 +47,8 @@ namespace ProjectJobPortalSystem.Controllers
             {
                 jm.PostedDate = DateTime.Now;
                 DataHelper.GetJobs().Add(jm);
-                return RedirectToAction("List");
+                //return RedirectToAction("List");
+                return RedirectToAction("Details", "Employer", new { id = jm.EmployerId });
             }
             return View(jm);
 
@@ -143,7 +136,9 @@ namespace ProjectJobPortalSystem.Controllers
                 ViewBag.empId = new SelectList(employersIds);
                 jm.PostedDate = DateTime.Now;
                 DataHelper.GetJobs()[jm.Id - 1] = jm;
-                return RedirectToAction("List");
+                //return RedirectToAction("List");
+                return RedirectToAction("Details", "Employer", new { id = jm.EmployerId });
+
             }
             return View(jm);
         }
@@ -163,6 +158,9 @@ namespace ProjectJobPortalSystem.Controllers
               return NotFound();*/
             var jobForDelete = DataHelper.GetJobs().FirstOrDefault(x => x.Id == id);
 
+            // Retrieve the jobseeker details who applied for this job
+            var jobSeekers = DataHelper.getJokSeekers().Where(js => js.jobs.Any(j => j.Id == id)).ToList();
+            ViewBag.JobSeekers = jobSeekers;
             if (jobForDelete == null)
             {
                 return RedirectToAction("List");
@@ -187,14 +185,32 @@ namespace ProjectJobPortalSystem.Controllers
                 }
             }
             return NotFound();*/
+            
             var jobtoremove = DataHelper.GetJobs().FirstOrDefault(a => a.Id == jm.Id);
-
+            
+          
             if (jobtoremove != null)
             {
+                // Find the job seeker that has the job
+                var jobSeeker = DataHelper.getJokSeekers().FirstOrDefault(js => js.jobs.Any(j => j.Id == jm.Id));
+                if (jobSeeker != null)
+                {
+                    // Remove the job from the job seeker's jobs
+                    var jobToDelete = jobSeeker.jobs.FirstOrDefault(j => j.Id == jm.Id);
+                    if (jobToDelete != null)
+                    {
+                        jobSeeker.jobs.Remove(jobToDelete);
+                    }
+                }
+                //Remove the job from jobs model
                 DataHelper.GetJobs().Remove(jobtoremove);
 
+                // Access the EmployerId property only if jobToRemove is not null
+                var employerId = jobtoremove.EmployerId;
+                return RedirectToAction("Details", "Employer", new { id = empid });
             }
-            return RedirectToAction("List");
+            // return RedirectToAction("List");
+          
         }
 
         //GET : /Jobs/Details

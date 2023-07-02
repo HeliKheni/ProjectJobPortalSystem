@@ -37,6 +37,12 @@
             @Html.DisplayFor(model => model.Skills)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContactNo)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Resume)
         </dt>
         <dd class="col-sm-10">
@@ -44,6 +50,45 @@
         </dd>
     </dl>
 
+    @if (Model == null || !Model.jobs.Any())
+    {
+        <p class="text-danger">Not Applied to Any Jobs.</p>
+    }
+    else
+    {
+        <h3 class="alert alert-info"> Applied Job Details </h3>
+        <table class="table table-bordered">
+            <tr class="table-dark">
+                <th>No</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().JobTitle)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().TypeofJob)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().Website)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().PostedDate)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().EmployerId)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().SalaryInfo)</th>
+                <th>@Html.DisplayNameFor(Model => Model.jobs.First().Description)</th>
+
+            </tr>
+            @foreach (var jobList in Model.jobs)
+            {
+                <tr class="table-success">
+                    <td>@Html.DisplayFor(_ => jobList.Id)</td>
+                    <td>@Html.DisplayFor(_ => jobList.JobTitle)</td>
+                    <td>@Html.DisplayFor(_ => jobList.TypeofJob)</td>
+                    <td>@Html.DisplayFor(_ => jobList.Website)</td>
+                    <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                    <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
+                    <td>@Html.DisplayFor(_ => jobList.EmployerId)</td>
+                    <td>@Html.DisplayFor(_ => jobList.Location)</td>
+                    <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
+                    <td>@Html.DisplayFor(_ => jobList.Description)</td>
+
+                </tr>
+            }
+        </table>
+    }
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> 
         <a asp-controller="JobSeeker" asp-action="List" class="btn btn-primary">Back to List of JobSeeker</a>
