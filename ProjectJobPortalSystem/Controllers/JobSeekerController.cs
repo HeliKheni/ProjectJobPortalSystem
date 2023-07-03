@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectJobPortalSystem.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjectJobPortalSystem.Controllers
 {
@@ -36,13 +37,32 @@ namespace ProjectJobPortalSystem.Controllers
             {
                 js.Id = jobSeekerList.Max(x => x.Id) + 1;
             }
-            if (ModelState.IsValid)
-            {
+          //  if (ModelState.IsValid)
+           // {
+                if (js.ResumeFile != null && js.ResumeFile.Length > 0)
+                {
+                    // Save the resume file to a desired location
+                    string resumeFileName =js.ResumeFile.FileName;
+                    string resumeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resumes", resumeFileName);
+                    using (var fileStream = new FileStream(resumeFilePath, FileMode.Create))
+                    {
+                        js.ResumeFile.CopyTo(fileStream);
+                    }
+                    js.Resume = resumeFileName;
+                }
                 jobSeekerList.Add(js);
                 return RedirectToAction("List");
-            }
-            return View(js);
+          //  }
+          //  return View(js);
         }
+      /*  private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                + "_"
+                + Guid.NewGuid().ToString().Substring(0, 4)
+                + Path.GetExtension(fileName);
+        }*/
 
         //GET : /JobSeeker/Edit
         public IActionResult Edit(int id)
@@ -55,15 +75,32 @@ namespace ProjectJobPortalSystem.Controllers
         [HttpPost]
         public IActionResult Edit(JobSeekerModel js)
         {
-            if (ModelState.IsValid)
-            {
-                DataHelper.getJokSeekers()[js.Id - 1] = js;
-                return RedirectToAction("List");
-            }
-            else
-            {
-                return View(js);
-            }
+            //if (ModelState.IsValid)
+            //{
+                if (js.ResumeFile != null && js.ResumeFile.Length > 0)
+                {
+                    // Save the new resume file to a desired location
+                    string resumeFileName = js.ResumeFile.FileName;
+                    string resumeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resumes", resumeFileName);
+                    using (var fileStream = new FileStream(resumeFilePath, FileMode.Create))
+                    {
+                        js.ResumeFile.CopyTo(fileStream);
+                    }
+                    js.Resume = resumeFileName;
+                }
+                else
+                {
+                    // No new file selected, use the old resume value
+                    var existingJobSeeker = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == js.Id);
+                    js.Resume = existingJobSeeker.Resume;
+                }
+            DataHelper.getJokSeekers()[js.Id - 1] = js;
+            return RedirectToAction("List");
+            /* }
+             else
+             {
+                 return View(js);
+             }*/
         }
 
         //GET : /JobSeeker/Delete

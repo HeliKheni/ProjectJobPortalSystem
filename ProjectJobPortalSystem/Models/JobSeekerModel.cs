@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 
 namespace ProjectJobPortalSystem.Models
@@ -41,9 +42,11 @@ namespace ProjectJobPortalSystem.Models
         [Display(Name = "Skill set")]
         public string Skills { get; set; }
 
-        [Required(ErrorMessage = "Resume No is required")]
-        public string Resume { get; set; }
 
+        [BindProperty(Name = "Resume")]
+        public IFormFile ResumeFile { get; set; }
+
+        public string Resume { get; set; }
         public List<JobsModel> jobs { get; set; } = new List<JobsModel>();
     }
 }

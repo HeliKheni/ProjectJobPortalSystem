@@ -14,9 +14,9 @@ namespace ProjectJobPortalSystem.Models
             if (jobSeeker == null)
             {
                 jobSeeker = new List<JobSeekerModel>();
-                jobSeeker.Add(new JobSeekerModel(1, "Hardi", "Majmundar","hardi@gmail.com",6479899894,"Coding","Resume"));
-                jobSeeker.Add(new JobSeekerModel(2, "Heli", "Kheni", "heliKheni@gmail.com", 6479099213, "Coding", "Resume"));
-                jobSeeker.Add(new JobSeekerModel(3, "vrushali", "Ponlia", "vrushaliponkia@gmail.com", 6479232342, "Coding", "Resume"));
+                jobSeeker.Add(new JobSeekerModel(1, "Hardi", "Majmundar","hardi@gmail.com",6479899894,"Coding","heli_kheni_parttime.pdf"));
+                jobSeeker.Add(new JobSeekerModel(2, "Heli", "Kheni", "heliKheni@gmail.com", 6479099213, "Coding", "Heli_Kheni_Resume.pdf"));
+                jobSeeker.Add(new JobSeekerModel(3, "vrushali", "Ponlia", "vrushaliponkia@gmail.com", 6479232342, "Coding", "Kheni_Heli_resume_2Pages.pdf"));
 
                  jobSeeker.ElementAt(0).jobs.Add(new JobsModel(1, "Software Engineer", "Full-time", "$80,000 - $100,000", "We are seeking a skilled software engineer to join our team.", "www.examplecompany.com", 1, "San Francisco, CA", DateTime.Now));
                  jobSeeker.ElementAt(0).jobs.Add(new JobsModel(2, "Marketing Specialist", "Part-time", "$40,000 - $50,000", "We are looking for a marketing specialist with experience in digital marketing.", "www.examplecompany.com", 2, "New York, NY", DateTime.Now));
