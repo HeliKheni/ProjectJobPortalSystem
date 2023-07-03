@@ -37,8 +37,7 @@ namespace ProjectJobPortalSystem.Controllers
             {
                 js.Id = jobSeekerList.Max(x => x.Id) + 1;
             }
-          //  if (ModelState.IsValid)
-           // {
+         
                 if (js.ResumeFile != null && js.ResumeFile.Length > 0)
                 {
                     // Save the resume file to a desired location
@@ -52,17 +51,8 @@ namespace ProjectJobPortalSystem.Controllers
                 }
                 jobSeekerList.Add(js);
                 return RedirectToAction("List");
-          //  }
-          //  return View(js);
+     
         }
-      /*  private string GetUniqueFileName(string fileName)
-        {
-            fileName = Path.GetFileName(fileName);
-            return Path.GetFileNameWithoutExtension(fileName)
-                + "_"
-                + Guid.NewGuid().ToString().Substring(0, 4)
-                + Path.GetExtension(fileName);
-        }*/
 
         //GET : /JobSeeker/Edit
         public IActionResult Edit(int id)
@@ -75,9 +65,7 @@ namespace ProjectJobPortalSystem.Controllers
         [HttpPost]
         public IActionResult Edit(JobSeekerModel js)
         {
-            //if (ModelState.IsValid)
-            //{
-                if (js.ResumeFile != null && js.ResumeFile.Length > 0)
+            if (js.ResumeFile != null && js.ResumeFile.Length > 0)
                 {
                     // Save the new resume file to a desired location
                     string resumeFileName = js.ResumeFile.FileName;
@@ -88,19 +76,13 @@ namespace ProjectJobPortalSystem.Controllers
                     }
                     js.Resume = resumeFileName;
                 }
-                else
-                {
-                    // No new file selected, use the old resume value
-                    var existingJobSeeker = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == js.Id);
-                    js.Resume = existingJobSeeker.Resume;
-                }
+            else
+            {
+                js.Resume = DataHelper.getJokSeekers()[js.Id - 1].Resume;
+            }
             DataHelper.getJokSeekers()[js.Id - 1] = js;
             return RedirectToAction("List");
-            /* }
-             else
-             {
-                 return View(js);
-             }*/
+            
         }
 
         //GET : /JobSeeker/Delete

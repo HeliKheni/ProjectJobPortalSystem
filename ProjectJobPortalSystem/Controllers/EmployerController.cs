@@ -87,9 +87,10 @@ namespace ProjectJobPortalSystem.Controllers
 
             if (empDelete == null)
             {
+                
                 return RedirectToAction("List");
             }
-
+            empDelete.Jobslist = DataHelper.GetJobs().Where(j => j.EmployerId == id).ToList();
             return View(empDelete);
         }
 

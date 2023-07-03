@@ -78,7 +78,7 @@ else
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Description)</th>
-            <th> Actions </th>
+            <th width="250"> Actions </th>
         </tr>
         @foreach (var jobList in Model.Jobslist)
         {
@@ -94,6 +94,8 @@ else
                 <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
                 <td>@Html.DisplayFor(_ => jobList.Description)</td>
                 <td>
+                    <a asp-controller="Jobs" asp-action="DetailsForEmployer" asp-route-id="@jobList.Id" class="btn btn-warning">Details</a>
+
                     <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" class="btn btn-primary">Edit</a>
                     <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" class="btn btn-danger">Delete</a>
                 </td>

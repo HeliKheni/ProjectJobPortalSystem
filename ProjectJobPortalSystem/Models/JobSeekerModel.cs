@@ -41,7 +41,7 @@ namespace ProjectJobPortalSystem.Models
         [Required(ErrorMessage = "Skills No is required")]
         [Display(Name = "Skill set")]
         public string Skills { get; set; }
-
+        
 
         [BindProperty(Name = "Resume")]
         public IFormFile ResumeFile { get; set; }
