@@ -135,7 +135,19 @@ namespace ProjectJobPortalSystem.Controllers
                 var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
                 ViewBag.empId = new SelectList(employersIds);
                 jm.PostedDate = DateTime.Now;
-                DataHelper.GetJobs()[jm.Id - 1] = jm;
+              
+               // DataHelper.GetJobs()[jm.Id - 1] = jm;
+
+                
+                
+                var jobtoedit = DataHelper.GetJobs().First(a => a.Id == jm.Id);
+                jobtoedit.PostedDate = DateTime.Now;
+                jobtoedit.JobTitle = jm.JobTitle;
+                jobtoedit.Description = jm.Description;
+                jobtoedit.Location = jm.Location;
+                jobtoedit.SalaryInfo = jm.SalaryInfo;
+                jobtoedit.TypeofJob = jm.TypeofJob;
+                jobtoedit.Website = jm.Website;
                 //return RedirectToAction("List");
                 return RedirectToAction("Details", "Employer", new { id = jm.EmployerId });
 
@@ -230,6 +242,24 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         }
+
+        //GET : /Jobs/Details
+        public IActionResult DetailsForEmployer(int id)
+        {
+
+            var job = DataHelper.GetJobs().FirstOrDefault(j => j.Id == id);
+
+            if (job != null)
+            {
+                // Retrieve the jobseeker details who applied for this job
+                var jobSeekers = DataHelper.getJokSeekers().Where(js => js.jobs.Any(j => j.Id == id)).ToList();
+                ViewBag.JobSeekers = jobSeekers;
+                return View(job);
+            }
+
+            return NotFound();
+        }
+
 
         //GET : /Jobs/Details
         public IActionResult Details(int id)

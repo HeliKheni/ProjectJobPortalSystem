@@ -34,7 +34,7 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Position)
             </th>
-            <th></th>
+            <th width="500"> Actions </th>
         </tr>
     </thead>
     <tbody>
@@ -61,7 +61,7 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
-                <td colspan="4" style="display: flex; justify-content: center;">
+                <td colspan="4" style="justify-content: center;">
 
                     <a asp-controller="Employer" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Details</a>
                     <a asp-controller="Employer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" style="margin-right: 10px;">Edit</a>

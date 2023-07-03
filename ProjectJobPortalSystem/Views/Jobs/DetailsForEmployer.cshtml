@@ -1,0 +1,65 @@
+﻿@model ProjectJobPortalSystem.Models.JobsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="alert alert-primary col-md-8">Job Details</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Job Title:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.JobTitle)</dd>
+                <dt class="col-sm-3">Description:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+                <dt class="col-sm-3">Type of Job:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TypeofJob)</dd>
+                <dt class="col-sm-3">Salary:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.SalaryInfo)</dd>
+                <dt class="col-sm-3">Posted Date:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PostedDate)</dd>
+                <dt class="col-sm-3">Location:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Location)</dd>
+                <dt class="col-sm-3">Website:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Website)</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+@if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
+{
+    <h3 class="mb-4 alert-success">Applied Job Seekers</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <th>Job Seeker ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var jobSeeker in ViewBag.JobSeekers)
+            {
+                <tr class="table-info">
+                    <td>@jobSeeker.Id</td>
+                    <td>@jobSeeker.FirstName</td>
+                    <td>@jobSeeker.LastName</td>
+                    <td>@jobSeeker.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3 class="mb-4 alert-danger">No job seekers applied for this job.</h3>
+
+}
+<div class="mt-4">
+    <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
+
+</div>
+</div>

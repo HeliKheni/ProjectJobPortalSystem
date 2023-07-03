@@ -44,18 +44,7 @@ namespace ProjectJobPortalSystem.Models
             }
             return jobsList;
         }
-        /* public static List<JobsModel> GetJobs()
-         {
-             List<JobsModel> jobs = new List<JobsModel>();
-
-             foreach (var jobSeeker in getJokSeekers())
-             {
-                 jobs.AddRange(jobSeeker.jobs);
-             }
-
-             return jobs;
-         }*/
-
+      
         public static List<EmployerModel> GetEmployers()
         {
             if (employerList == null)
