@@ -8,11 +8,11 @@
     <h1 class="alert alert-primary display-4 mb-4">Delete Job</h1>
 
     <h3>Are you sure you want to delete this?</h3>
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
     <div class="card mb-4">
         <div class="card-body">
-
+            
             <input type="hidden" asp-for="EmployerId" value="ViewBag.EmployerId" />
-
 
             <dl class="row">
                 
@@ -65,40 +65,10 @@
                     @Html.DisplayFor(model => model.Location)
                 </dd>
             </dl>
-            @if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
-            {
-                <h3 class="mb-4 alert-success">Applied Job Seekers</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="table-dark">
-                            <th>Job Seeker ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var jobSeeker in ViewBag.JobSeekers)
-                        {
-                            <tr class="table-info">
-                                <td>@jobSeeker.Id</td>
-                                <td>@jobSeeker.FirstName</td>
-                                <td>@jobSeeker.LastName</td>
-                                <td>@jobSeeker.Email</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <h3 class="mb-4 alert-danger">No job seekers applied for this job.</h3>
-
-            }
-            <form asp-action="Delete">
-                <input type="submit" value="Delete" class="btn btn-danger" /> |
-                <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
-            </form>
+          <input type="submit" value="Delete" class="btn btn-danger" /> |
+           <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
+            
         </div>
     </div>
+    </form>
 </div>

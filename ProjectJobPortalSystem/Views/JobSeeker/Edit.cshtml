@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
@@ -49,7 +49,12 @@
                         <p>No resume available</p>
                     }
                 </dd> 
-            </div> <br /> <br /><br /><br />
+            </div> 
+            <div class="form-group">
+                <label asp-for="ResumeFile" class="control-label">New Resume</label>
+                <input asp-for="ResumeFile" class="form-control" type="file" data-val="false" />
+            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" /> 
                 <a asp-controller="JobSeeker" asp-action="List" class="btn btn-danger">Back to List of JobSeeker</a>
