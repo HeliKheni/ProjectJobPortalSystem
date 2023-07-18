@@ -132,8 +132,19 @@ namespace ProjectJobPortalSystem.Controllers
         public IActionResult Details(int id)
         {
             //var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
-            var jobSeekerDetails = _context.JobSeekers.Find(id);
-            return View(jobSeekerDetails);
+            /* var jobSeekerDetails = _context.JobSeekers.Find(id);
+             return View(jobSeekerDetails);*/
+
+           // var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
+                var jobSeekerDetails = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
+
+                if (jobSeekerDetails != null)
+                {
+                    return View(jobSeekerDetails);
+                }
+
+                return NotFound();
+           
         }
 
     }

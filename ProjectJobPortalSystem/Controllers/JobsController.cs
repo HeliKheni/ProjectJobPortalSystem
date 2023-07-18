@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectJobPortalSystem.Data;
 using ProjectJobPortalSystem.Models;
+using System.Security.Policy;
+using System.Threading.Channels;
 
 namespace ProjectJobPortalSystem.Controllers
 {
@@ -79,6 +82,29 @@ namespace ProjectJobPortalSystem.Controllers
         [HttpPost]
         public IActionResult Apply(int jobId, int id)
         {
+             var job = _context.Jobs.Include(j => j.appliedJobSeekers).FirstOrDefault(j => j.Id == jobId);
+             var jobSeeker = _context.JobSeekers.FirstOrDefault(js => js.Id == id);
+
+             if (job != null && jobSeeker != null)
+             {
+                    // Check if the job seeker has already applied for the job
+                    if (job.appliedJobSeekers.Any(js => js.Id == id))
+                    {
+                        ModelState.AddModelError(string.Empty, "You have already applied for this job.");
+                        ViewBag.jobseekerlist = new SelectList(_context.JobSeekers.Select(js => js.Id).ToList());
+                        return View(job);
+                    }
+
+                    job.appliedJobSeekers.Add(jobSeeker);
+               
+                    _context.SaveChanges();
+
+                    return RedirectToAction("List", "Jobs");
+                }
+
+                return View();
+          
+
            /* var jobs = DataHelper.GetJobs();
             var jobSeekers = DataHelper.getJokSeekers();
             var job = jobs.FirstOrDefault(j => j.Id == jobId);
@@ -100,16 +126,16 @@ namespace ProjectJobPortalSystem.Controllers
             }
             return View();
            */
-           var jobs = _context.Jobs.Find(jobId);
-           var jobSeeker = _context.JobSeekers.Find(id);
-           
-           jobs.appliedJobSeekers.Add(jobSeeker);
-            jobSeeker.jobs.Add(jobs);
-            _context.Jobs.Update(jobs);
-            _context.JobSeekers.Update(jobSeeker);
-            _context.SaveChanges();
+                    /* var jobs = _context.Jobs.Find(jobId);
+                     var jobSeeker = _context.JobSeekers.Find(id);
 
-            return RedirectToAction("List", "Jobs");
+                     jobs.appliedJobSeekers.Add(jobSeeker);
+                      jobSeeker.jobs.Add(jobs);
+                      _context.Jobs.Update(jobs);
+                      _context.JobSeekers.Update(jobSeeker);
+                      _context.SaveChanges();
+
+                      return RedirectToAction("List", "Jobs");*/
         }
 
         //GET : /Jobs/Edit
@@ -230,15 +256,30 @@ namespace ProjectJobPortalSystem.Controllers
              }
              return NotFound();*/
 
-           // var jobModel = _context.Jobs.Include(t => t.appliedJobSeekers).FirstOrDefault(m => m.Id == id);
-           // return View(jobModel);
+            // var jobModel = _context.Jobs.Include(t => t.appliedJobSeekers).FirstOrDefault(m => m.Id == id);
+            // return View(jobModel);
 
-            var jobModel = _context.Jobs.Find(id);
-            var jobSeekers = jobModel.appliedJobSeekers;
-            ViewBag.JobSeekers = jobSeekers;
-            return View(jobModel);
+            /* var jobModel = _context.Jobs.Find(id);
+             var jobSeekers = jobModel.appliedJobSeekers;
+             ViewBag.JobSeekers = jobSeekers;
+             return View(jobModel);*/
 
-          
+            var job = _context.Jobs.Include(j => j.appliedJobSeekers).FirstOrDefault(j => j.Id == id);
+
+            if (job != null)
+            {
+                // Retrieve the jobseeker details who applied for this job
+                var jobSeekers = _context.JobSeekers.Where(js => js.jobs.Any(j => j.Id == id)).ToList();
+
+                ViewBag.JobSeekers = jobSeekers;
+                ViewBag.Employer = _context.Employers.FirstOrDefault(e => e.Id == job.EmployerId);
+
+                return View(job);
+            }
+
+            return NotFound();
+
+
         }
 
 
