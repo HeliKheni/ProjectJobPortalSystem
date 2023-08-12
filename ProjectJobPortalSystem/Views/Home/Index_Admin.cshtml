@@ -24,17 +24,20 @@
             }
 
             .jumbotron h1 {
-                color : white;
+                color: white;
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             }
 
+        .titleWC {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
         .module-container {
-           padding-bottom : 50px;
-
+            padding-bottom: 50px;
         }
 
         .module {
-            background-color:antiquewhite;
+            background-color: antiquewhite;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -50,13 +53,14 @@
             .module:hover {
                 transform: translateY(-5px);
                 background-color: coral;
-                color:black;
+                color: black;
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             }
 
                 .module:hover p {
                     color: white;
                 }
+
             .module h3 {
                 font-size: 1.8rem;
                 margin-bottom: 10px;
@@ -80,23 +84,32 @@
     <div class="jumbotron text-center">
         <div class="overlay"></div>
         <h1 class="display-2">Job Portal System</h1>
+        <h2 class="titleWC">Hello Admin  @User.Identity?.Name! ..</h2>
     </div>
 
     <div class="container module-container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="module">
-                    <h3>Jobseeker: View & Apply for Jobs</h3>
+                    <h3>View all Jobs</h3>
                     <p>Explore a wide range of job opportunities from various industries and locations. Find the perfect job that matches your skills, interests, and career goals</p>
+                    <a href="/Jobs/List" class="btn btn-primary btn-lg">View Jobs</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="module">
-                    <h3>Employer: Post job</h3>
+                    <h3>View all Employers</h3>
                     <p>Access a pool of talented job seekers and manage your recruitment process efficiently. Post job vacancies, review applicant profiles, and make informed hiring decisions to build a successful team.</p>
+                    <a href="/Employer/List" class="btn btn-primary btn-lg">View Employers</a>
                 </div>
             </div>
-           
+            <div class="col-lg-4 col-md-6 mx-auto">
+                <div class="module">
+                    <h3>View all Job Seekers</h3>
+                    <p> Connect with top employers and showcase your talents and qualifications. Create your professional profile, browse job listings, and apply for exciting career opportunities.</p>
+                    <a href="/JobSeeker/List" class="btn btn-primary btn-lg">View Job Seekers</a>
+                </div>
+            </div>
         </div>
     </div>
 

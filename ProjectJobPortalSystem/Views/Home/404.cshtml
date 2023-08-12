@@ -1,0 +1,62 @@
+﻿@model object
+@{
+    ViewBag.Title = "404 - Not Found";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 - Not Found</title>
+    <style>
+        /* Rest of your CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #242943;
+            margin: 0;
+            padding: 0;
+            
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 6rem;
+            color: #f2a154;
+            margin-bottom: 10px;
+            margin-top:200px;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="bounce-heading">404</h1>
+        <p>Oops! The requested page was not found on this server.</p>
+    </div>
+
+    <script>
+        // JavaScript for the bouncing animation
+        var heading = document.getElementById('bounce-heading');
+        var bounceFrames = [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(-30px)' },
+            { transform: 'translateY(-15px)' },
+            { transform: 'translateY(0)' }
+        ];
+
+        heading.animate(bounceFrames, {
+            duration: 1500,
+            iterations: Infinity
+        });
+    </script>
+</body>
+</html>

@@ -17,6 +17,22 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
+        public IActionResult Index_Employer()
+        {
+            return View();
+        }
+        public IActionResult Index_Jobseeker()
+        {
+            return View();
+        }
+
+
+        [Route("/Home/NotFound")]
+        public IActionResult NotFound(int? statusCode)
+        {
+            ViewData["StatusCode"] = statusCode;
+            return View("404");
+        }
 
         public IActionResult Privacy()
         {

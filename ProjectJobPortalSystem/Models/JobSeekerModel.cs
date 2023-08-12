@@ -9,7 +9,7 @@ namespace ProjectJobPortalSystem.Models
     {
         public JobSeekerModel() { }
 
-        public JobSeekerModel(int id, string firstName, string lastName, string email, BigInteger contactNo, string skills, string resume)
+        public JobSeekerModel(String id, string firstName, string lastName, string email, BigInteger contactNo, string skills, string resume)
         {
             Id = id;
             FirstName = firstName;
@@ -20,7 +20,7 @@ namespace ProjectJobPortalSystem.Models
             Resume = resume;
         }
         [Key]
-        public int Id { get; set; }
+        public String Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z]+$", ErrorMessage = "First Name should only contain alphabetic characters")]

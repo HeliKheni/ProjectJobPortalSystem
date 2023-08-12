@@ -4,11 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="alert alert-primary">Edit Employer DEtails</h1>
+<h1 class="alert alert-primary">Edit Your Details</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form id="editForm" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         
             <div class="form-group">
@@ -23,9 +23,34 @@
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" readonly class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label class="control-label">Old Password</label>
+                <input required name="OldPassword" id="OldPassword" class="form-control" type="password" />
+                @if (TempData.ContainsKey("OldPasswordError"))
+                {
+                    <span class="text-danger">@TempData["OldPasswordError"]</span>
+                }
+            </div>
+            <div class="form-group">
+                <label class="control-label">New Password</label>
+                <input name="NewPassword" id="NewPassword" class="form-control" type="password" />
+                @if (TempData.ContainsKey("NewPasswordError"))
+                {
+                    <span class="text-danger">@TempData["NewPasswordError"]</span>
+                }
+            </div>
+            <div class="form-group">
+                <label class="control-label">Confirm New Password</label>
+                <input name="ConfirmNewPassword" id="ConfirmNewPassword" class="form-control" type="password" />
+                @if (TempData.ContainsKey("ConfirmPasswordError"))
+                {
+                    <span class="text-danger">@TempData["ConfirmPasswordError"]</span>
+                }
+            </div>
+
             <div class="form-group">
                 <label asp-for="ContactNo" class="control-label"></label>
                 <input asp-for="ContactNo" class="form-control" />
@@ -45,11 +70,10 @@
                 <label asp-for="Position" class="control-label"></label>
                 <input asp-for="Position" class="form-control" />
                 <span asp-validation-for="Position" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-controller="Employer" asp-action="List" class="btn btn-danger">Back to List of Employer </a>
-
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index_Employer" class="btn btn-danger">HomePage </a>
             </div>
         </form>
     </div>
@@ -57,4 +81,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+   
 }

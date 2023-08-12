@@ -8,7 +8,7 @@ namespace ProjectJobPortalSystem.Models
         static List<JobsModel> jobsList;
         static List<EmployerModel> employerList;
         public static List<string> jobTypes = new List<string> { "Full-Time", "Part-Time", "Contact", "Seasonal", "Internship" };
-
+        /*
         public static List<JobSeekerModel> getJokSeekers()
         {
             if (jobSeeker == null)
@@ -56,7 +56,7 @@ namespace ProjectJobPortalSystem.Models
                 employerList.Add(new EmployerModel(4, "Emily", "Wilson", 9999999999, "emily.wilson@example.com", "GlobexCorporation", "Leadingproviderofglobalbusinesssolutions.", "CFO"));
             }
             return employerList;
-        }
+        }*/
 
     }
 }

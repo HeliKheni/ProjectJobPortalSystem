@@ -9,7 +9,7 @@ namespace ProjectJobPortalSystem.Models
     {
         public EmployerModel() { }
 
-        public EmployerModel(int id, string firstName, string lastName, BigInteger contactNo, string email, string companyName, string companyProfile, string position)
+        public EmployerModel(String id, string firstName, string lastName, BigInteger contactNo, string email, string companyName, string companyProfile, string position)
         {
             Id = id;
             FirstName = firstName;
@@ -21,7 +21,7 @@ namespace ProjectJobPortalSystem.Models
             Position = position;
         }
         [Key]
-        public int Id { get; set; }
+        public String Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z]+$", ErrorMessage = "First Name should only contain alphabetic characters")]
@@ -66,6 +66,8 @@ namespace ProjectJobPortalSystem.Models
         public string Position { get; set; }
 
         [ForeignKey("EmployerId")]
+
+        
         public List<JobsModel> Jobslist { get; set; } = new List<JobsModel>();
     }
 }

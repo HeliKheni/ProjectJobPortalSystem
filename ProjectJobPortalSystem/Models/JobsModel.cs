@@ -7,7 +7,7 @@ namespace ProjectJobPortalSystem.Models
     public class JobsModel
     {
         public JobsModel() { }
-        public JobsModel(int id, string jobTitle, string typeofJob, string salaryInfo, string description, string website, int employerId, string location, DateTime? postedDate = null)
+        public JobsModel(int id, string jobTitle, string typeofJob, string salaryInfo, string description, string website, string employerId, string location, DateTime? postedDate = null)
         {
             Id = id;
             JobTitle = jobTitle;
@@ -48,7 +48,7 @@ namespace ProjectJobPortalSystem.Models
 
         public DateTime PostedDate { get; set; }
 
-        public int EmployerId { get; set; }
+        public string EmployerId { get; set; }
 
         [Required(ErrorMessage = "Location is required")]
         [StringLength(50)]

@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .jumbotron {
+            background: url("/images/back_jobs.jpg") center/cover no-repeat;
+            height: 300px;
+            position: relative;
+        }
+
+            .jumbotron .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            .jumbotron h1 {
+                color: white;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .titleWC{
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+        .module-container {
+            padding-bottom: 50px;
+        }
+
+        .module {
+            background-color: antiquewhite;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .module:hover {
+                transform: translateY(-5px);
+                background-color: coral;
+                color: black;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+                .module:hover p {
+                    color: white;
+                }
+
+            .module h3 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .module p {
+                color: #6c757d;
+                margin-bottom: 20px;
+            }
+
+            .module .btn {
+                font-size: 1rem;
+                padding: 10px 30px;
+                border-radius: 20px;
+            }
+    </style>
+</head>
+
+<body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+             @inject UserManager<IdentityUser> UserManager
+            var userId = @UserManager.GetUserId(User);
+
+        <div class="jumbotron text-center">
+            <div class="overlay"></div>
+            <h1 class="display-2">Job Portal System</h1>
+            <h2 class="titleWC">Welcome jobseeker  @User.Identity?.Name! to our system.. Find your Dream job here</h2>
+        </div>
+
+        <div class="container module-container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="module">
+                        <h3>View all Jobs</h3>
+                        <p>Explore a wide range of job opportunities from various industries and locations. Find the perfect job that matches your skills, interests, and career goals</p>
+                        <a asp-controller="Jobs" asp-action="List" class="btn btn-primary btn-lg" class="btn btn-success" style="margin-right: 10px;">View All Jobs</a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="module">
+                        <h3>View Applied jobs</h3>
+                        <p> Display a list of jobs that you already applied for, along with associated employer information. </p>
+                        <a asp-controller="JobSeeker" asp-action="Details" class="btn btn-primary btn-lg" asp-route-id="@userId" class="btn btn-success" style="margin-right: 10px;">View Applied Jobs</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="module">
+                        <h3>Manage Account</h3>
+                        <p> Access and update your profile information, job preferences, and change your password for enhanced account security. </p>
+                        <a asp-controller="JobSeeker" asp-action="Edit" class="btn btn-primary btn-lg" asp-route-id="@userId" class="btn btn-success" style="margin-right: 10px;">Manage Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    }
+</body>
+
+</html>

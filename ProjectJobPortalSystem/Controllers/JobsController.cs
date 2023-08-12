@@ -1,4 +1,6 @@
 ﻿using Humanizer;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +32,13 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : //Jobs/Create
-        public IActionResult Create(int employerId)
+        public IActionResult Create(string employerId)
         {
             ViewBag.JobTypes = new SelectList(DataHelper.jobTypes);
             // var employersIds = DataHelper.GetEmployers().Select(js => js.Id).ToList(); // Retrieve all job seeker IDs
             // ViewBag.empId = new SelectList(employersIds);
             ViewBag.EmployerId = employerId;
+            ViewBag.EmployerName = @User.Identity?.Name;
             return View();
         }
 
@@ -58,9 +61,7 @@ namespace ProjectJobPortalSystem.Controllers
                 _context.Jobs.Add(jm);
                 _context.SaveChanges();
 
-                return RedirectToAction("Details", "Employer", new { id = jm.EmployerId });
-           
-
+                return RedirectToAction("Index_Employer", "Home");
         }
 
         //GET : //Jobs/Apply
@@ -80,7 +81,7 @@ namespace ProjectJobPortalSystem.Controllers
 
         // POST: /Jobs/Apply
         [HttpPost]
-        public IActionResult Apply(int jobId, int id)
+        public IActionResult Apply(int jobId, string id)
         {
              var job = _context.Jobs.Include(j => j.appliedJobSeekers).FirstOrDefault(j => j.Id == jobId);
              var jobSeeker = _context.JobSeekers.FirstOrDefault(js => js.Id == id);

@@ -15,8 +15,7 @@ namespace ProjectJobPortalSystem.Data.Migrations
                 name: "Employers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ContactNo = table.Column<string>(type: "nvarchar(10)", nullable: false),
@@ -34,8 +33,7 @@ namespace ProjectJobPortalSystem.Data.Migrations
                 name: "JobSeekers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -60,7 +58,7 @@ namespace ProjectJobPortalSystem.Data.Migrations
                     TypeofJob = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     SalaryInfo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployerId = table.Column<int>(type: "int", nullable: false),
+                    EmployerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -78,7 +76,7 @@ namespace ProjectJobPortalSystem.Data.Migrations
                 name: "JobSeekerModelJobsModel",
                 columns: table => new
                 {
-                    appliedJobSeekersId = table.Column<int>(type: "int", nullable: false),
+                    appliedJobSeekersId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     jobsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -1,23 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectJobPortalSystem.Data;
 using ProjectJobPortalSystem.Models;
+
+using System.Data;
 
 namespace ProjectJobPortalSystem.Controllers
 {
     public class EmployerController : Controller
     {
+        
         public readonly ApplicationDbContext _context;
 
-        public EmployerController(ApplicationDbContext context)
+        private UserManager<IdentityUser> _userManager;
+
+        
+        public EmployerController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        [Authorize(Roles = "Employer")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Employer")]
         //GET : /Employer/List
         public IActionResult List()
         {
@@ -54,25 +66,58 @@ namespace ProjectJobPortalSystem.Controllers
             return View(em);
         }
 
-
+        [Authorize(Roles = "Employer")]
         //GET : /Employer/Edit
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
             // var employeerEdit = DataHelper.GetEmployers().First(x => x.Id == id);
             var employeerEdit = _context.Employers.Find(id);
+            
             return View(employeerEdit);
         }
         //POST : /Employer/Edit
+        [Authorize(Roles = "Employer")]
         [HttpPost]
-        public IActionResult Edit(EmployerModel em)
+        public async Task<IActionResult> EditAsync(EmployerModel em, String OldPassword, String NewPassword, String ConfirmNewPassword)
         {
+            var user = await _userManager.FindByIdAsync(em.Id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if(OldPassword == "")
+            {
+                TempData["OldPasswordError"] = "Required";
+            }
+            if (NewPassword != ConfirmNewPassword)
+            {
+                TempData["ConfirmPasswordError"] = "New Password and Confirm New Password do not match.";
+                return View(em);
+            }
+            // Verify the user's current password
+            if (!await _userManager.CheckPasswordAsync(user, OldPassword))
+            {
+                TempData["OldPasswordError"] = "Incorrect current password.";
+                return View(em);
+            }
+            if (!string.IsNullOrEmpty(NewPassword))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await _userManager.ResetPasswordAsync(user, token, NewPassword);
+                if (!result.Succeeded)
+                {
+                    TempData["NewPasswordError"] = "Your New Password not valid.Include one capital letter, symbol and number.";
+                    return View(em);
+                }
+            }
             if (ModelState.IsValid)
             {
                 //DataHelper.GetEmployers()[em.Id - 1] = em;
                 _context.Employers.Update(em);
                 _context.SaveChanges();
 
-                return RedirectToAction("List");
+                return RedirectToAction("Index_Employer","Home");
             }
             else
             {
@@ -82,7 +127,8 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         //GET: /Employer/Details
-        public IActionResult Details(int id)
+        [Authorize(Roles = "Employer")]
+        public IActionResult Details(string id)
         {
             /* var employerDetails = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
              if (employerDetails != null)
@@ -96,8 +142,9 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
 
-        //GET: /Employer/Delete
-        public IActionResult Delete(int id)
+        //GET: /Employer/Delet
+       [Authorize(Roles = "Employer")]
+        public IActionResult Delete(string id)
         {
             /*var empDelete = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
             if (empDelete == null)
@@ -119,6 +166,7 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         // POST: /Employer/Delete
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(EmployerModel em)

@@ -10,7 +10,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -30,12 +31,21 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+// Register the custom 404 route
+app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?statusCode={0}");
+
 
 app.MapControllerRoute(
    name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+
+
+app.MapControllerRoute(
+       name: "custom",
+       pattern: "Account/Register",
+       defaults: new { controller = "Account", action = "Register" });
 
 app.MapRazorPages();
 

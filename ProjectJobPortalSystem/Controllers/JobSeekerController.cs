@@ -4,16 +4,19 @@ using ProjectJobPortalSystem.Models;
 using Microsoft.AspNetCore.Http;
 using ProjectJobPortalSystem.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjectJobPortalSystem.Controllers
 {
     public class JobSeekerController : Controller
     {
         public readonly ApplicationDbContext _context;
+        private UserManager<IdentityUser> _userManager;
 
-        public JobSeekerController(ApplicationDbContext context)
+        public JobSeekerController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -66,27 +69,42 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : /JobSeeker/Edit
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
             //var jobSeekerEdit = DataHelper.getJokSeekers().First(x => x.Id == id);
             var jobSeekerEdit = _context.JobSeekers.Find(id);
+            bool isJobSeeker = User.IsInRole("JobSeeker");
+            if (isJobSeeker)
+            {
+                ViewData["role"] = "JobSeeker";
+            }
+            else
+            {
+                ViewData["role"] = "Employer";
+            }
             return View(jobSeekerEdit);
         }
         //POST : /JobSeeker/Edit
         [HttpPost]
-        public IActionResult Edit(JobSeekerModel js)
+        public async Task<IActionResult> EditAsync(JobSeekerModel js, String OldPassword, String NewPassword, String ConfirmNewPassword)
         {
-           if (js.ResumeFile != null && js.ResumeFile.Length > 0)
+            var user = await _userManager.FindByIdAsync(js.Id);
+           
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (js.ResumeFile != null && js.ResumeFile.Length > 0)
+            {
+                // Save the new resume file to a desired location
+                string resumeFileName = js.ResumeFile.FileName;
+                string resumeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resumes", resumeFileName);
+                using (var fileStream = new FileStream(resumeFilePath, FileMode.Create))
                 {
-                    // Save the new resume file to a desired location
-                    string resumeFileName = js.ResumeFile.FileName;
-                    string resumeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resumes", resumeFileName);
-                    using (var fileStream = new FileStream(resumeFilePath, FileMode.Create))
-                    {
-                        js.ResumeFile.CopyTo(fileStream);
-                    }
-                    js.Resume = resumeFileName;
+                    js.ResumeFile.CopyTo(fileStream);
                 }
+                js.Resume = resumeFileName;
+            }
             else
             {
                 //js.Resume = DataHelper.getJokSeekers()[js.Id - 1].Resume;
@@ -98,12 +116,38 @@ namespace ProjectJobPortalSystem.Controllers
                     _context.Entry(existingEntity).State = EntityState.Detached;
                 }
             }
+            if (OldPassword == "")
+            {
+                TempData["OldPasswordError"] = "Required";
+            }
+            if (NewPassword != ConfirmNewPassword)
+            {
+                TempData["ConfirmPasswordError"] = "New Password and Confirm New Password do not match.";
+                return View(js);
+            }
+            // Verify the user's current password
+            if (!await _userManager.CheckPasswordAsync(user, OldPassword))
+            {
+                TempData["OldPasswordError"] = "Incorrect current password.";
+                return View(js);
+            }
+            if (!string.IsNullOrEmpty(NewPassword))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await _userManager.ResetPasswordAsync(user, token, NewPassword);
+                if (!result.Succeeded)
+                {
+                    TempData["NewPasswordError"] = "Your New Password not valid.Include one capital letter, symbol and number.";
+                    return View(js);
+                }
+            }
+           
           //  DataHelper.getJokSeekers()[js.Id - 1] = js;
           //  return RedirectToAction("List");
-
+            
             _context.JobSeekers.Update(js);
             _context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("Index_JobSeeker","Home");
 
         }
 
@@ -129,7 +173,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : /JobSeeker/Details
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
             //var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
             /* var jobSeekerDetails = _context.JobSeekers.Find(id);
