@@ -4,72 +4,24 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="alert alert-primary">Details of Employer</h1>
+<h1 class="alert alert-primary">Details of Jobs</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyProfile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyProfile)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Position)
-        </dd>
-    </dl>
-</div>
 @if (Model == null || !Model.Jobslist.Any())
 {
-    <h3 class="alert alert-danger">No Jobs Created.</h3>
+    <h3 class="alert alert-danger">No Jobs Posted .</h3>
 }
 else
 {
-    <h3 class="alert alert-primary">Details of posted jobs</h3>
+    
     <table class="table table-bordered">
         <tr class="table-dark">
-            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Id)</th>
+           <th>Job No</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().JobTitle)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().TypeofJob)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Website)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().PostedDate)</th>
-            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().EmployerId)</th>
+            <th>EmployerEmail</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Description)</th>
@@ -84,7 +36,7 @@ else
                 <td>@Html.DisplayFor(_ => jobList.Website)</td>
                 <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
-                <td>@Html.DisplayFor(_ => jobList.EmployerId)</td>
+                <td>@ViewBag.EmployerName</td>
                 <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
                 <td>@Html.DisplayFor(_ => jobList.Description)</td>
@@ -100,6 +52,5 @@ else
     </table>
 }
 <br /></><p>
-    <a asp-controller="Jobs" asp-action="Create" asp-route-employerId="@Model?.Id" class="btn btn-primary">Create New Job</a>
-    <a asp-controller="Employer" asp-action="List" class="btn btn-danger">Back to List of Employer </a>
+    <a asp-controller="Home" asp-action="Index_Employer" class="btn btn-danger">HomePage</a>
 </p>

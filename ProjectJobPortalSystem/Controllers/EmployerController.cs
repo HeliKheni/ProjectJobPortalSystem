@@ -138,6 +138,7 @@ namespace ProjectJobPortalSystem.Controllers
              return View(employerDetails);*/
 
             var employerDetails = _context.Employers.Include(t => t.Jobslist).FirstOrDefault(m => m.Id == id);
+            ViewBag.EmployerName = @User.Identity?.Name;
             return View(employerDetails);
         }
 

@@ -180,9 +180,9 @@ namespace ProjectJobPortalSystem.Controllers
              return View(jobSeekerDetails);*/
 
            // var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
-                var jobSeekerDetails = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
-
-                if (jobSeekerDetails != null)
+            var jobSeekerDetails = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
+            ViewBag.EmployerName = @User.Identity?.Name;
+            if (jobSeekerDetails != null)
                 {
                     return View(jobSeekerDetails);
                 }

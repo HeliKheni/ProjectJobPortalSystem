@@ -3,56 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1 class="alert alert-primary">Details Of Job Seeker</h1>
-<div>
+<h1 class="alert alert-primary">Details Of Posted Jobs</h1>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Skills)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Skills)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Resume)
-        </dt>
-        
-        <dd class="col-sm-10"> 
-            @if (!string.IsNullOrEmpty(Model.Resume))
-            {
-                <a href="@Url.Content("~/resumes/" + Model.Resume)" download> @Model.Resume  - Download Resume</a>
-            }
-            else
-            {
-                <p>No resume available</p>
-            }
-        </dd>
-    </dl>
-</div>
+   
 @if (Model == null || !Model.jobs.Any())
 {
     <p class="text-danger">Not Applied to Any Jobs.</p>
@@ -68,7 +21,7 @@ else
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Website)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().PostedDate)</th>
-            <th>@Html.DisplayNameFor(Model => Model.jobs.First().EmployerId)</th>
+            <th>EmployerEmail</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.jobs.First().Description)</th>
@@ -83,7 +36,7 @@ else
                 <td>@Html.DisplayFor(_ => jobList.Website)</td>
                 <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
-                <td>@Html.DisplayFor(_ => jobList.EmployerId)</td>
+                <td>@ViewBag.EmployerName</td>
                 <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
                 <td>@Html.DisplayFor(_ => jobList.Description)</td>
@@ -93,5 +46,5 @@ else
     </table>
 }
 <div>
-    <a asp-controller="JobSeeker" asp-action="List" class="btn btn-danger">Back to List</a>
+    <a asp-controller="Home" asp-action="Index_JobSeeker" class="btn btn-danger">HomePage</a>
 </div>
