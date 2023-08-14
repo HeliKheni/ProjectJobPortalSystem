@@ -58,7 +58,6 @@ else
             </td>
             <td colspan="3" style="display: flex; justify-content: center;">
                     <a asp-controller="JobSeeker" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Details</a>
-                    <a asp-controller="JobSeeker" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" style="margin-right: 10px;">Edit</a>
                     <a asp-controller="JobSeeker" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
 
@@ -68,6 +67,5 @@ else
 </table>
 }
 <p>
-    <a asp-action="Create" class="btn btn-primary">Add Job Seeker Details </a> 
-    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>
+    <a asp-controller="Home" asp-action="Index_Admin" class="btn btn-danger">Home</a>
 </p>

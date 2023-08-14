@@ -3,7 +3,51 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1 class="alert alert-primary">Details Of Posted Jobs</h1>
+
+@if (@User.Identity?.Name! == "admin@gmail.com")
+{
+    <dl class="row">
+        <h1 class="alert alert-primary">Details Of JobSeeker</h1>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Skills)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Skills)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContactNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Resume)
+        </dd>
+    </dl>
+}
+
+<h1 class="alert alert-primary">Details Of Applied Jobs</h1>
     <hr />
    
 @if (Model == null || !Model.jobs.Any())
@@ -46,5 +90,12 @@ else
     </table>
 }
 <div>
-    <a asp-controller="Home" asp-action="Index_JobSeeker" class="btn btn-danger">HomePage</a>
+    @if (@User.Identity?.Name! == "admin@gmail.com")
+{
+        <a asp-controller="JobSeeker" asp-action="List" class="btn btn-danger">HomePage</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index_JobSeeker" class="btn btn-danger">HomePage</a>
+    }
 </div>

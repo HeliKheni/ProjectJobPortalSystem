@@ -15,6 +15,20 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+// Create the admin role if it doesn't exist
+using (var scope = serviceProvider.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var adminRoleExists = await roleManager.RoleExistsAsync("Admin");
+    if (!adminRoleExists)
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+}
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

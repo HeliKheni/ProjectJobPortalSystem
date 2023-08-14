@@ -29,7 +29,7 @@ namespace ProjectJobPortalSystem.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Employer")]
+        [Authorize(Roles = "Admin,Employer")]
         //GET : /Employer/List
         public IActionResult List()
         {
@@ -127,7 +127,7 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         //GET: /Employer/Details
-        [Authorize(Roles = "Employer")]
+        [Authorize(Roles = "Admin,Employer")]
         public IActionResult Details(string id)
         {
             /* var employerDetails = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
@@ -144,7 +144,7 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         //GET: /Employer/Delet
-       [Authorize(Roles = "Employer")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(string id)
         {
             /*var empDelete = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
@@ -167,7 +167,7 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         // POST: /Employer/Delete
-        [Authorize(Roles = "Employer")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(EmployerModel em)

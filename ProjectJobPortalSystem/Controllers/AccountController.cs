@@ -23,11 +23,14 @@ namespace ProjectJobPortalSystem.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            // Create the admin user if not exists
+            InitializeAdminUser().Wait();
         }
 
         [HttpGet]
         public IActionResult Register()
         {
+
             return View();
         }
 
@@ -42,17 +45,11 @@ namespace ProjectJobPortalSystem.Controllers
                     UserName =  model.Email
                 };
 
-            /* var passwordHasher = new PasswordHasher<IdentityUser>();
-             var hashedPassword = passwordHasher.HashPassword(user, model.Password);
-             user.PasswordHash = hashedPassword;
-
-             var result = await _userManager.CreateAsync(user, user.PasswordHash);
-             */
+            
             var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-
                     // Check if the role exists, and create it if not
                     var roleExists = await _roleManager.RoleExistsAsync(model.Role);
                     if (!roleExists)
@@ -62,8 +59,6 @@ namespace ProjectJobPortalSystem.Controllers
                     }
 
                 // Assign the role to the user
-
-
                 if (model.Role == "Employer")
                     {
                         await _userManager.AddToRoleAsync(user, model.Role);
@@ -151,6 +146,23 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
+        private async Task InitializeAdminUser()
+        {
+            var adminUser = await _userManager.FindByEmailAsync("admin@gmail.com");
+            if (adminUser == null)
+            {
+                adminUser = new IdentityUser
+                {
+                    UserName = "admin@gmail.com",
+                    Email = "admin@gmail.com",
+                    EmailConfirmed = true
+                };
+
+                await _userManager.CreateAsync(adminUser, "Admin123@");
+                await _userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
@@ -158,7 +170,11 @@ namespace ProjectJobPortalSystem.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                if (model.Email == "admin@gmail.com" && model.Password == "Admin123@")
+                {
+                    return RedirectToAction("Index_Admin", "Home");
+                }
+                else if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
                     if (user != null)
@@ -173,6 +189,7 @@ namespace ProjectJobPortalSystem.Controllers
                         {
                             return RedirectToAction("Index_Jobseeker", "Home");
                         }
+                        
                     }
 
                     // Default redirect if role is not recognized

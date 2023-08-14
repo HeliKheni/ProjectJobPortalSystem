@@ -25,7 +25,10 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
-
+        public IActionResult Index_Admin()
+        {
+            return View();
+        }
 
         [Route("/Home/NotFound")]
         public IActionResult NotFound(int? statusCode)

@@ -17,15 +17,15 @@ namespace ProjectJobPortalSystem.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("JobSeekerModelJobsModel", b =>
                 {
-                    b.Property<int>("appliedJobSeekersId")
-                        .HasColumnType("int");
+                    b.Property<string>("appliedJobSeekersId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("jobsId")
                         .HasColumnType("int");
@@ -241,11 +241,8 @@ namespace ProjectJobPortalSystem.Data.Migrations
 
             modelBuilder.Entity("ProjectJobPortalSystem.Models.EmployerModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -289,11 +286,8 @@ namespace ProjectJobPortalSystem.Data.Migrations
 
             modelBuilder.Entity("ProjectJobPortalSystem.Models.JobSeekerModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ContactNoString")
                         .IsRequired()
@@ -342,8 +336,9 @@ namespace ProjectJobPortalSystem.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("EmployerId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("JobTitle")
                         .IsRequired()

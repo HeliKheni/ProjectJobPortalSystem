@@ -52,7 +52,49 @@
             </div>
         </div>
     }
+    @if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
+{
+<h3 class="mb-4 alert-success">Applied Job Seekers</h3>
+<table class="table table-striped">
+    <thead>
+        <tr class="table-dark">
 
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>ContactNo</th>
+            <th>Skills</th>
+            <th>Resume</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jobSeeker in ViewBag.JobSeekers)
+        {
+            <tr class="table-info">
+
+                <td>@jobSeeker.FirstName</td>
+                <td>@jobSeeker.LastName</td>
+                <td>@jobSeeker.Email</td>
+                <td>@jobSeeker.ContactNo</td>
+                <td>@jobSeeker.Skills</td>
+                @if (!string.IsNullOrEmpty(jobSeeker.Resume))
+                {
+                    <th> <a href="@Url.Content("~/resumes/" + @jobSeeker.Resume)" download> @jobSeeker.Resume  - Download Resume  </a></th>
+                }
+                else
+                {
+                    <th>No resume available</th>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+<h3 class="mb-4 alert-danger">No job seekers applied for this job.</h3>
+
+}
     <div class="mt-4">
         <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
     </div>

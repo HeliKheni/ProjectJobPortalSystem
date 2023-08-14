@@ -13,9 +13,7 @@ else
 <table class="table">
     <thead>
         <tr>
-            <th>
-                No
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -40,9 +38,7 @@ else
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -64,7 +60,6 @@ else
                 <td colspan="4" style="justify-content: center;">
 
                     <a asp-controller="Employer" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin-right: 10px;">Details</a>
-                    <a asp-controller="Employer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" style="margin-right: 10px;">Edit</a>
                     <a asp-controller="Employer" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
         </tr>
@@ -73,6 +68,6 @@ else
 </table> 
 }<br />
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New Employer </a>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Home </a>
+    
+    <a asp-controller="Home" asp-action="Index_Admin" class="btn btn-danger">Home </a>
 </p>

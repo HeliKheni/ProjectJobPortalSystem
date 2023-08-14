@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using ProjectJobPortalSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectJobPortalSystem.Controllers
 {
@@ -18,11 +19,12 @@ namespace ProjectJobPortalSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
+        [Authorize(Roles = "JobSeeker")]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin,JobSeeker")]
         //GET : /JobSeeker/List
         public IActionResult List()
         {
@@ -69,6 +71,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : /JobSeeker/Edit
+        [Authorize(Roles = "JobSeeker")]
         public IActionResult Edit(string id)
         {
             //var jobSeekerEdit = DataHelper.getJokSeekers().First(x => x.Id == id);
@@ -86,6 +89,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
         //POST : /JobSeeker/Edit
         [HttpPost]
+        [Authorize(Roles = "JobSeeker")]
         public async Task<IActionResult> EditAsync(JobSeekerModel js, String OldPassword, String NewPassword, String ConfirmNewPassword)
         {
             var user = await _userManager.FindByIdAsync(js.Id);
@@ -152,14 +156,17 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : /JobSeeker/Delete
-        public IActionResult Delete(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delete(string id)
         {
             // var jobSeekerDelete = DataHelper.getJokSeekers().First(x => x.Id == id);
-            var jobSeekerDelete = _context.JobSeekers.Find(id);
+            var jobSeekerDelete = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
+
             return View(jobSeekerDelete);
         }
 
         //POST : /JobSeeker/Delete
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(JobSeekerModel qt)
         {
@@ -169,10 +176,11 @@ namespace ProjectJobPortalSystem.Controllers
             _context.JobSeekers.Remove(qt);
             _context.SaveChanges();
 
-            return RedirectToAction("List");
+            return RedirectToAction("List","JobSeeker");
         }
 
         //GET : /JobSeeker/Details
+        [Authorize(Roles = "Admin,JobSeeker")]
         public IActionResult Details(string id)
         {
             //var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);

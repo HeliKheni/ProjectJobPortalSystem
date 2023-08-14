@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -189,10 +190,11 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // GET: /Jobs/Delete/
+        [Authorize(Roles = "Admin,Employer")]
         public IActionResult Delete(int id)
         {
             var jobForDelete = _context.Jobs.Find(id);
-            ViewBag.EmployerId = jobForDelete.EmployerId;
+            
             ViewBag.EmployerName = @User.Identity?.Name;
             if (jobForDelete == null)
             {
@@ -203,18 +205,29 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // POST: /Jobs/Delete/
+        [Authorize(Roles = "Admin,Employer")]
         [HttpPost]
         public IActionResult Delete(JobsModel jm)
         {
             var job = _context.Jobs.Find(jm.Id);
+           
             var empid = job.EmployerId;
             _context.Jobs.Remove(job);
             _context.SaveChanges();
-            return RedirectToAction("Details", "Employer", new { id = empid });
+           if(@User.Identity?.Name! != "admin@gmail.com")
+             {
+                return RedirectToAction("Details", "Employer", new { id = empid });
+            }
+           else
+            {
+                return RedirectToAction("List", "Jobs");
+            }
+          
 
         }
 
         //GET : /Jobs/Details
+        [Authorize(Roles = "Admin,Employer")]
         public IActionResult DetailsForEmployer(int id)
         {
 
@@ -238,13 +251,23 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         //GET : /Jobs/Details
+        [Authorize(Roles = "Admin,JobSeeker")]
         public IActionResult Details(int id)
         {
            // var jobModel = _context.Jobs.Include(t => t.JobsEmployer).FirstOrDefault(m => m.Id == id);
-            var jobModel = _context.Jobs.Find(id);
-            var employer = _context.Employers.Find(jobModel.EmployerId);
+          //  var jobModel = _context.Jobs.Find(id);
+            var job = _context.Jobs.Include(j => j.appliedJobSeekers).FirstOrDefault(j => j.Id == id);
+
+            if (job != null)
+            {
+                // Retrieve the jobseeker details who applied for this job
+                var jobSeekers = _context.JobSeekers.Where(js => js.jobs.Any(j => j.Id == id)).ToList();
+                ViewBag.JobSeekers = jobSeekers;
+            }
+
+            var employer = _context.Employers.Find(job.EmployerId);
             ViewBag.Employer = employer;
-            return View(jobModel);
+            return View(job);
         }
 
 

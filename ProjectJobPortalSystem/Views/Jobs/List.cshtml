@@ -42,26 +42,46 @@ else
 
                     <td>@Html.DisplayFor(modelItem => item.Location)</td>
                     <td>
-                        <div class="btn-group" role="group">
-                                @if (ViewBag.AppliedJobIds.Contains(item.Id))
-                                {
-                                    <span class="btn btn-danger">Applied</span>
-                                }
-                                else
-                                {
-                                    <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-warning btn-hover">Apply</a>
-                                }
+                            @if (@User.Identity?.Name! != "admin@gmail.com")
+                            {
+                                <div class="btn-group" role="group">
+                                    @if (ViewBag.AppliedJobIds.Contains(item.Id))
+                                    {
+                                        <span class="btn btn-danger">Applied</span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Jobs" asp-action="Apply" asp-route-id="@item.Id" class="btn btn-warning btn-hover">Apply</a>
+                                    }
 
-                           
-                            <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-hover">Details</a>
-                        </div>
-                    </td>
+
+                                    <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-hover">Details</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="btn-group" role="group">
+                                <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-hover">Delete</a>
+                                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-hover">Details</a>
+                                </div>
+                            }
+                        </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 }
+
 <div class="text-center">
-    <a asp-controller="Home" asp-action="Index_JobSeeker" class="btn btn-primary">Home</a>
+     @if (@User.Identity?.Name! != "admin@gmail.com")
+     {
+        <a asp-controller="Home" asp-action="Index_JobSeeker" class="btn btn-primary">Home</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index_Admin" class="btn btn-primary">Home</a>
+
+    }
+
 </div>
