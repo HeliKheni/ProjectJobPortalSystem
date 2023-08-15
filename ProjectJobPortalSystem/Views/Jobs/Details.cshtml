@@ -52,6 +52,9 @@
             </div>
         </div>
     }
+      @if (@User.Identity?.Name! == "admin@gmail.com")
+     {
+
     @if (ViewBag.JobSeekers != null && ViewBag.JobSeekers.Count > 0)
 {
 <h3 class="mb-4 alert-success">Applied Job Seekers</h3>
@@ -94,6 +97,7 @@ else
 {
 <h3 class="mb-4 alert-danger">No job seekers applied for this job.</h3>
 
+}
 }
     <div class="mt-4">
         <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List of Jobs</a>
