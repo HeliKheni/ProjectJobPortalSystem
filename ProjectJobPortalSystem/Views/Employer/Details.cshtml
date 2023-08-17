@@ -70,7 +70,6 @@ else
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().PostedDate)</th>
             <th>EmployerEmail</th>
-            <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Location)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().SalaryInfo)</th>
             <th>@Html.DisplayNameFor(Model => Model.Jobslist.First().Description)</th>
             @if (@User.Identity?.Name! != "admin@gmail.com")
@@ -88,18 +87,19 @@ else
                 <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.PostedDate)</td>
                 <td>@ViewBag.EmployerName</td>
-                <td>@Html.DisplayFor(_ => jobList.Location)</td>
                 <td>@Html.DisplayFor(_ => jobList.SalaryInfo)</td>
                 <td>@Html.DisplayFor(_ => jobList.Description)</td>
-                <td>
+               
                     @if (@User.Identity?.Name! != "admin@gmail.com")
                     {
+                    <td>
                         <a asp-controller="Jobs" asp-action="DetailsForEmployer" asp-route-id="@jobList.Id" class="btn btn-warning">Details</a>
 
                         <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@jobList.Id" class="btn btn-primary">Edit</a>
                         <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@jobList.Id" class="btn btn-danger">Delete</a>
+                    </td>
                     }
-                </td>
+            
 
             </tr>
         }

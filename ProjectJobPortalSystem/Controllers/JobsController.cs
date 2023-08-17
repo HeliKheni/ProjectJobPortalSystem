@@ -22,11 +22,8 @@ namespace ProjectJobPortalSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+        [Authorize]
         //GET : /Jobs/List
         public IActionResult List()
         {
@@ -60,6 +57,8 @@ namespace ProjectJobPortalSystem.Controllers
             return View(_context.Jobs.ToList());
         }
 
+        [Authorize(Roles = "Employer")]
+
         //GET : //Jobs/Create
         public IActionResult Create(string employerId)
         {
@@ -72,6 +71,7 @@ namespace ProjectJobPortalSystem.Controllers
 
 
         // POST: /Jobs/Create
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         public IActionResult Create(JobsModel jm)
         {
@@ -84,6 +84,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : //Jobs/Apply
+        [Authorize(Roles = "JobSeeker")]
         public IActionResult Apply(int id)
         {
            
@@ -92,6 +93,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // POST: /Jobs/Apply
+        [Authorize(Roles = "JobSeeker")]
         [HttpPost]
         public IActionResult Apply(JobsModel jm)
         {
@@ -129,40 +131,9 @@ namespace ProjectJobPortalSystem.Controllers
 
                 return View();
           
-
-           /* var jobs = DataHelper.GetJobs();
-            var jobSeekers = DataHelper.getJokSeekers();
-            var job = jobs.FirstOrDefault(j => j.Id == jobId);
-            var jobSeeker = jobSeekers.First(js => js.Id == id);
-
-            if (jobSeeker != null)
-            {
-                // Check if the job seeker has already applied for the job
-                if (jobSeeker.jobs.Any(j => j.Id == jobId))
-                {
-                    ModelState.AddModelError(string.Empty, "You have already applied for this job.");
-                    var jobSeekersIds = jobSeekers.Select(js => js.Id).ToList();
-                    ViewBag.jobseekerlist = new SelectList(jobSeekersIds);
-                    return View(job);
-                }
-
-                jobSeeker.jobs.Add(job);
-                return RedirectToAction("List", "Jobs");
-            }
-            return View();
-           */
-                    /* var jobs = _context.Jobs.Find(jobId);
-                     var jobSeeker = _context.JobSeekers.Find(id);
-
-                     jobs.appliedJobSeekers.Add(jobSeeker);
-                      jobSeeker.jobs.Add(jobs);
-                      _context.Jobs.Update(jobs);
-                      _context.JobSeekers.Update(jobSeeker);
-                      _context.SaveChanges();
-
-                      return RedirectToAction("List", "Jobs");*/
         }
 
+        [Authorize(Roles = "Employer")]
         //GET : /Jobs/Edit
         public IActionResult Edit(int id)
         {
@@ -176,7 +147,7 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // POST: /Jobs/Edit
-
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         public IActionResult Edit(JobsModel jm)
         {

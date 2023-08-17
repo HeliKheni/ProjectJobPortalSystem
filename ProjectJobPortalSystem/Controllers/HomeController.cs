@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectJobPortalSystem.Models;
 using System.Diagnostics;
 
@@ -17,14 +18,17 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Employer")]
         public IActionResult Index_Employer()
         {
             return View();
         }
+        [Authorize(Roles = "JobSeeker")]
         public IActionResult Index_Jobseeker()
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Index_Admin()
         {
             return View();

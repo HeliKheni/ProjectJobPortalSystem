@@ -64,8 +64,16 @@
                 </dd>
             </dl>
           <input type="submit" value="Delete" class="btn btn-danger" /> |
-           <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List</a>
-            
+             @if (@User.Identity?.Name! != "admin@gmail.com")
+     {
+                    <a asp-controller="Employer" asp-action="Details" asp-route-id="@Model.EmployerId" class="btn btn-danger">Back to List</a>
+                }
+                else
+                {
+                    <a asp-controller="Jobs" asp-action="List" class="btn btn-danger">Back to List</a>
+
+                }
+
         </div>
     </div>
     </form>

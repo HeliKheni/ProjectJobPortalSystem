@@ -23,11 +23,7 @@ namespace ProjectJobPortalSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Authorize(Roles = "Employer")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
         [Authorize(Roles = "Admin,Employer")]
         //GET : /Employer/List
@@ -38,24 +34,20 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         //GET : //Employer/Create
+
+        [Authorize(Roles = "Employer")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: /Employer/Create
+
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         public IActionResult Create(EmployerModel em)
         {
-           /* var jobSeekerList = DataHelper.GetEmployers();
-            if (jobSeekerList.Count == 0)
-            {
-                em.Id = 1;
-            }
-            else
-            {
-                em.Id = jobSeekerList.Max(x => x.Id) + 1;
-            }*/
+           
             if (ModelState.IsValid)
             {
                // jobSeekerList.Add(em);
@@ -72,8 +64,7 @@ namespace ProjectJobPortalSystem.Controllers
         {
             // var employeerEdit = DataHelper.GetEmployers().First(x => x.Id == id);
             var employeerEdit = _context.Employers.Find(id);
-            
-            return View(employeerEdit);
+            return View(employeerEdit);     
         }
         //POST : /Employer/Edit
         [Authorize(Roles = "Employer")]
@@ -111,18 +102,12 @@ namespace ProjectJobPortalSystem.Controllers
                     return View(em);
                 }
             }
-            if (ModelState.IsValid)
-            {
-                //DataHelper.GetEmployers()[em.Id - 1] = em;
+            //DataHelper.GetEmployers()[em.Id - 1] = em;
                 _context.Employers.Update(em);
                 _context.SaveChanges();
 
                 return RedirectToAction("Index_Employer","Home");
-            }
-            else
-            {
-                 return View(em);
-            }
+          
         }
 
 
@@ -130,13 +115,6 @@ namespace ProjectJobPortalSystem.Controllers
         [Authorize(Roles = "Admin,Employer")]
         public IActionResult Details(string id)
         {
-            /* var employerDetails = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
-             if (employerDetails != null)
-             {
-                 employerDetails.Jobslist = DataHelper.GetJobs().Where(j => j.EmployerId == id).ToList();
-             }
-             return View(employerDetails);*/
-
             var employerDetails = _context.Employers.Include(t => t.Jobslist).FirstOrDefault(m => m.Id == id);
             ViewBag.EmployerName = @User.Identity?.Name;
             return View(employerDetails);
@@ -147,14 +125,7 @@ namespace ProjectJobPortalSystem.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(string id)
         {
-            /*var empDelete = DataHelper.GetEmployers().FirstOrDefault(x => x.Id == id);
-            if (empDelete == null)
-            {
-                return RedirectToAction("List");
-            }
-            empDelete.Jobslist = DataHelper.GetJobs().Where(j => j.EmployerId == id).ToList();
-            return View(empDelete);*/
-
+            
             var empDelete = _context.Employers.Find(id);
             if (empDelete == null)
             {
@@ -170,15 +141,16 @@ namespace ProjectJobPortalSystem.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(EmployerModel em)
+        public async Task<IActionResult> DeleteAsync(EmployerModel em)
         {
-            /* var employertoremove = DataHelper.GetEmployers().FirstOrDefault(a => a.Id == em.Id);
-             if (employertoremove != null)
-             {
-                 DataHelper.GetEmployers().Remove(employertoremove);
+            // Find the user associated with the employer
+            var user = await _userManager.FindByIdAsync(em.Id);
 
-             }
-             return RedirectToAction("List");*/
+            if (user != null)
+            {
+                // Delete the user
+                var result = await _userManager.DeleteAsync(user);
+            }
             _context.Employers.Remove(em);
             _context.SaveChanges();
             return RedirectToAction("List");

@@ -146,6 +146,8 @@ namespace ProjectJobPortalSystem.Controllers
         {
             return View();
         }
+
+        //Creating admin user
         private async Task InitializeAdminUser()
         {
             var adminUser = await _userManager.FindByEmailAsync("admin@gmail.com");

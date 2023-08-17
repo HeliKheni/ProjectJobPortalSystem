@@ -19,19 +19,15 @@ namespace ProjectJobPortalSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Authorize(Roles = "JobSeeker")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
         [Authorize(Roles = "Admin,JobSeeker")]
         //GET : /JobSeeker/List
         public IActionResult List()
         {
-            //return View(DataHelper.getJokSeekers());
             return View(_context.JobSeekers.ToList());
         }
 
+        [Authorize(Roles = "JobSeeker")]
         //GET : //JobSeeker/Create
         public IActionResult Create()
         {
@@ -39,19 +35,10 @@ namespace ProjectJobPortalSystem.Controllers
         }
 
         // POST: /JobSeeker/Create
+        [Authorize(Roles = "JobSeeker")]
         [HttpPost]
         public IActionResult Create(JobSeekerModel js)
         {
-            /*var jobSeekerList = DataHelper.getJokSeekers();
-            if (jobSeekerList.Count == 0)
-            {
-                js.Id = 1;
-            }
-            else
-            {
-                js.Id = jobSeekerList.Max(x => x.Id) + 1;
-            }*/
-         
             if (js.ResumeFile != null && js.ResumeFile.Length > 0)
              {
                     // Save the resume file to a desired location
@@ -111,8 +98,6 @@ namespace ProjectJobPortalSystem.Controllers
             }
             else
             {
-                //js.Resume = DataHelper.getJokSeekers()[js.Id - 1].Resume;
-                //js.Resume = _context.JobSeekers.Find(js.Id).Resume;
                 JobSeekerModel existingEntity = _context.JobSeekers.AsNoTracking().FirstOrDefault(j => j.Id == js.Id);
                 if (existingEntity != null)
                 {
@@ -145,10 +130,6 @@ namespace ProjectJobPortalSystem.Controllers
                     return View(js);
                 }
             }
-           
-          //  DataHelper.getJokSeekers()[js.Id - 1] = js;
-          //  return RedirectToAction("List");
-            
             _context.JobSeekers.Update(js);
             _context.SaveChanges();
             return RedirectToAction("Index_JobSeeker","Home");
@@ -168,12 +149,18 @@ namespace ProjectJobPortalSystem.Controllers
         //POST : /JobSeeker/Delete
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult Delete(JobSeekerModel qt)
-        {
-           // var jobSeekerDelete = DataHelper.getJokSeekers().First(a => a.Id == qt.Id);
-           // DataHelper.getJokSeekers().Remove(jobSeekerDelete);
-          
-            _context.JobSeekers.Remove(qt);
+       public async Task<IActionResult> DeleteAsync(JobSeekerModel qt)
+            {
+                // Find the user associated with the employer
+                var user = await _userManager.FindByIdAsync(qt.Id);
+
+                if (user != null)
+                {
+                    // Delete the user
+                    var result = await _userManager.DeleteAsync(user);
+                }
+
+                _context.JobSeekers.Remove(qt);
             _context.SaveChanges();
 
             return RedirectToAction("List","JobSeeker");
@@ -183,12 +170,7 @@ namespace ProjectJobPortalSystem.Controllers
         [Authorize(Roles = "Admin,JobSeeker")]
         public IActionResult Details(string id)
         {
-            //var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
-            /* var jobSeekerDetails = _context.JobSeekers.Find(id);
-             return View(jobSeekerDetails);*/
-
-           // var jobSeekerDetails = DataHelper.getJokSeekers().FirstOrDefault(x => x.Id == id);
-            var jobSeekerDetails = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
+             var jobSeekerDetails = _context.JobSeekers.Include(js => js.jobs).FirstOrDefault(js => js.Id == id);
             ViewBag.EmployerName = @User.Identity?.Name;
             if (jobSeekerDetails != null)
                 {
@@ -196,7 +178,6 @@ namespace ProjectJobPortalSystem.Controllers
                 }
 
                 return NotFound();
-           
         }
 
     }
