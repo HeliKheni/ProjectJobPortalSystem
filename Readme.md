@@ -42,10 +42,10 @@ Build and run the project in Visual Studio.
 
 
 Technologies Used
-ASP.NET MVC
-Entity Framework
-Identity Framework
-MySQL Database
-C#
-HTML/CSS/BootStrap
-JavaScript
+ - ASP.NET MVC
+ - Entity Framework
+ - Identity Framework
+ - MySQL Database
+ - C#
+ - HTML/CSS/BootStrap
+ - JavaScript
