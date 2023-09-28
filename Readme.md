@@ -29,7 +29,7 @@ Getting Started
   
   Clone the repository to your local machine.
   
-  git clone https://github.com/yourusername/job-portal-system.git
+  git clone https://github.com/HeliKheni/ProjectJobPortalSystem.git
   
   Open the project in Visual Studio.
   Configure the MySQL database connection in the appsettings.json file.
