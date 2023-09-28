@@ -1,6 +1,6 @@
 Job Portal System
-The Job Portal System is a web-based application developed using the ASP.NET MVC framework . It is designed to serve as a platform for job seekers and employers to interact, 
-manage job listings. The system is built on top of the Identity Framework for user authentication and Entity Framework for database operations.It developed using Entity framework and identity framwork.
+  The Job Portal System is a web-based application developed using the ASP.NET MVC framework . It is designed to serve as a platform for job seekers and employers to interact, 
+  manage job listings. The system is built on top of the Identity Framework for user authentication and Entity Framework for database operations.It developed using Entity framework and identity framwork.
 
 Features
 1. User Registration and Login
@@ -25,20 +25,20 @@ Features
  - Utilizes MySQL as the backend database for storing user data, job listings, and related information.
    
 Getting Started
-To get the project up and running locally on your development machine, follow these steps:
-
-Clone the repository to your local machine.
-
-git clone https://github.com/yourusername/job-portal-system.git
-
-Open the project in Visual Studio.
-Configure the MySQL database connection in the appsettings.json file.
-
-"ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=JobPortalDB;User=root;Password=yourpassword;"
-}
-
-Build and run the project in Visual Studio.
+  To get the project up and running locally on your development machine, follow these steps:
+  
+  Clone the repository to your local machine.
+  
+  git clone https://github.com/yourusername/job-portal-system.git
+  
+  Open the project in Visual Studio.
+  Configure the MySQL database connection in the appsettings.json file.
+  
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Database=JobPortalDB;User=root;Password=yourpassword;"
+  }
+  
+  Build and run the project in Visual Studio.
 
 
 Technologies Used
